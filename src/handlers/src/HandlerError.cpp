@@ -1,7 +1,7 @@
 #include <sstream>
 #include <iostream>
-#include "HandlerError.h"
-#include "Handler.h"
+#include "../HandlerError.h"
+#include "../Handler.h"
 using namespace std;
 
 HandlerError::HandlerError(et__HandlerErrorType errorType, string errorMessage, Handler *originator):errorType(errorType),errorMessage(errorMessage), originator(originator)

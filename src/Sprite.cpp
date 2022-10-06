@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include "Sprite.h"
-#include "handlers/inc/DisplayHandler.h"
+#include "handlers/DisplayHandler.h"
 // Public functions
 Sprite::Sprite()
 {

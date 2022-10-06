@@ -1,9 +1,9 @@
-#include "handlers/inc/ImageHandler.h"
-#include "handlers/inc/DisplayHandler.h"
-#include "handlers/inc/WindowHandler.h"
-#include "handlers/inc/CameraHandler.h"
-#include "ImageComponent.h"
-#include "Sprite.h"
+#include "../../handlers/ImageHandler.h"
+#include "../../handlers/DisplayHandler.h"
+#include "../../handlers/WindowHandler.h"
+#include "../../handlers/CameraHandler.h"
+#include "../ImageComponent.h"
+#include "../../Sprite.h"
 using namespace std;
 
 SDL_Texture* ImageComponent::getLoadedImage(string path)

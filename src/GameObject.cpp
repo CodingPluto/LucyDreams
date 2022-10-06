@@ -1,6 +1,6 @@
 #include <iostream>
 #include "GameObject.h"
-#include "handlers/inc/DisplayHandler.h"
+#include "handlers/DisplayHandler.h"
 using namespace std;
 
 Game *GameObject::game = nullptr;

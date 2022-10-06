@@ -7,8 +7,8 @@
 #include <limits.h>
 #include <dirent.h>
 #include "Game.h"
-#include "handlers/inc/Handler.h"
-#include "utils.h"
+#include "handlers/Handler.h"
+#include "utils/utils.h"
 
 using namespace std;
 

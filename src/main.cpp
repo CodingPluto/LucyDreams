@@ -1,14 +1,13 @@
 #include <iostream>
 #include "Game.h"
-#include "Component.h"
 #include "Sprite.h"
-#include "handlers/inc/WindowHandler.h"
-#include "handlers/inc/DisplayHandler.h"
-#include "handlers/inc/EventsHandler.h"
-#include "handlers/inc/ImageHandler.h"
-#include "handlers/inc/CameraHandler.h"
-#include "AnimationComponent.h"
-#include "Camera.h"
+#include "handlers/WindowHandler.h"
+#include "handlers/DisplayHandler.h"
+#include "handlers/EventsHandler.h"
+#include "handlers/ImageHandler.h"
+#include "handlers/CameraHandler.h"
+#include "components/AnimationComponent.h"
+#include "handlers/Camera.h"
 using namespace std;
 
 class Tim : public Sprite

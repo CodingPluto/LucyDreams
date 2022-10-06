@@ -1,6 +1,6 @@
-#include "handlers/inc/ImageHandler.h"
-#include "AnimationComponent.h"
-#include "Game.h"
+#include "../../handlers/ImageHandler.h"
+#include "../AnimationComponent.h"
+#include "../../Game.h"
 
 using namespace std;
 map<string,AnimationConfiguration> AnimationComponent::animationConfigurations;

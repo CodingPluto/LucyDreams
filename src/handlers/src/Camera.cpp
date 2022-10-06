@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
-#include "handlers/inc/WindowHandler.h"
-#include "handlers/inc/ImageHandler.h"
-#include "Camera.h"
-#include "Sprite.h"
+#include "../WindowHandler.h"
+#include "../ImageHandler.h"
+#include "../Camera.h"
+#include "../../Sprite.h"
 using namespace std;
 
 Camera::Camera(Sprite *owner, std::string imageName): owner(owner)

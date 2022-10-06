@@ -1,6 +1,6 @@
 #ifndef SRC_CAMERA_H
 #define SRC_CAMERA_H
-#include "Position.h"
+#include "../Position.h"
 class Camera
 {
 private:

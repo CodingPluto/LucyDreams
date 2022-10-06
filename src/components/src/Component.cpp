@@ -1,5 +1,5 @@
-#include "Component.h"
-#include "Sprite.h"
+#include "../Component.h"
+#include "../../Sprite.h"
 using namespace std;
 
 Component::Component(Sprite *sprite)

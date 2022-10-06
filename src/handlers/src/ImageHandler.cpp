@@ -1,8 +1,8 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
-#include "ImageHandler.h"
-#include "DisplayHandler.h"
-#include "../ImageComponent.h"
+#include "../ImageHandler.h"
+#include "../DisplayHandler.h"
+#include "../../components/ImageComponent.h"
 
 using namespace std;
 

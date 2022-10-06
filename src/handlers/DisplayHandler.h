@@ -1,7 +1,7 @@
 #ifndef SRC_DISPLAY_HANDLER_H
 #define SRC_DISPLAY_HANDLER_H
 #include "Handler.h"
-#include "../../Colour.h"
+#include "../Colour.h"
 class DisplayHandler : public Handler
 {
 private:

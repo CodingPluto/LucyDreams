@@ -1,6 +1,6 @@
-#include "DisplayHandler.h"
-#include "WindowHandler.h"
-#include "ImageHandler.h"
+#include "../DisplayHandler.h"
+#include "../WindowHandler.h"
+#include "../ImageHandler.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 using namespace std;

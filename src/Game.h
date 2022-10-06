@@ -5,7 +5,7 @@
 #include <chrono>
 #include <string>
 #include "GameObject.h"
-#include "handlers/inc/Handler.h"
+#include "handlers/Handler.h"
 
 
 #define INTENDED_FRAMERATE 60

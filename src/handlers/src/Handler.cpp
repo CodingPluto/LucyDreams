@@ -1,5 +1,5 @@
-#include "Handler.h"
-#include "Game.h"
+#include "../Handler.h"
+#include "../../Game.h"
 #include <iostream>
 using namespace std;
 Game *Handler::game = nullptr;
