@@ -56,9 +56,14 @@ void Game::gameLoop()
             outputErrors();
             calculateDeltaTime();
             accumulated_seconds = 0;
-            ++ticksSinceGameStart;
+            ++framesSinceInitalization;
         }
     }
+}
+
+long long Game::getFramesSinceInitalization()
+{
+    return framesSinceInitalization;
 }
 
 void Game::getInput()

@@ -5,6 +5,7 @@
 #include "handlers/EventsHandler.h"
 #include "handlers/ImageHandler.h"
 #include "handlers/CameraHandler.h"
+#include "handlers/InputHandler.h"
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
 using namespace std;
@@ -30,6 +31,10 @@ public:
     }
     void update()
     {
+        if (game->inputHandler->keyJustPressed(SDL_SCANCODE_W))
+        {
+            cout << "W pressed" << endl;
+        }
         changePosition(0,0);
         displayPosition();
     }
@@ -42,6 +47,7 @@ class LucyDreams : public Game
         windowHandler = new WindowHandler("Lucy Dreams!",0,0,500,500);
         displayHandler = new DisplayHandler(windowHandler);
         eventsHandler = new EventsHandler();
+        inputHandler = new InputHandler();
         cameraHandler = new CameraHandler();
         imageHandler = new ImageHandler(displayHandler,"/home/pluto/Documents/Programming/LucyDreams/assets/images/");
     }

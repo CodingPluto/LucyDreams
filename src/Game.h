@@ -8,7 +8,6 @@
 #include "handlers/Handler.h"
 
 
-#define INTENDED_FRAMERATE 60
 
 
 class Game
@@ -20,11 +19,12 @@ protected:
     virtual void loadGameData() = 0;
     std::vector<class Handler*> organisedHandlers[4];
 private:
+    const unsigned int intended_framerate = 60;
+    long long framesSinceInitalization = 0;
     std::chrono::_V2::system_clock::time_point previousIterDT;
     std::chrono::_V2::system_clock::time_point currentIterDT;
     std::chrono::_V2::system_clock::time_point previousFrameDT;
     std::chrono::_V2::system_clock::time_point currentFrameDT;
-    //const Uint8 *keys;
 
     std::vector<class GameObject*> gameObjects;
     void gameLoop();
@@ -39,13 +39,14 @@ private:
     std::vector<HandlerError*> errorsOnTick;
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
-    long long ticksSinceGameStart = 0;
     class WindowHandler *windowHandler = nullptr;
     class DisplayHandler *displayHandler = nullptr;
     class EventsHandler *eventsHandler = nullptr; 
     class ImageHandler *imageHandler = nullptr;
     class CameraHandler *cameraHandler = nullptr;
+    class InputHandler *inputHandler = nullptr;
     double deltaTime = 0.016;
+    long long getFramesSinceInitalization();
     void initalize();
     void addHandler(Handler *handler, hp__HandlerTickPoint tickPoint);
     void exitGame();
