@@ -1,2 +1,2 @@
 # LucyDreams
-Its a game.
+It's a game.
