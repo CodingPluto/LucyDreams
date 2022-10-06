@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 #include "Sprite.h"
 #include "handlers/WindowHandler.h"

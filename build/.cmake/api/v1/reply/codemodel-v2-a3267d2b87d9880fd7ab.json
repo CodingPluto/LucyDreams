@@ -1,0 +1,174 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src/utils",
+					"jsonFile" : "directory-src.utils-Debug-3e06762d87894fb62125.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "src/utils",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "src/handlers",
+					"jsonFile" : "directory-src.handlers-Debug-9ecbb8672e3daf8d3ebe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "src/handlers",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "src/components",
+					"jsonFile" : "directory-src.components-Debug-49302e3acd7bbd64d224.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 3,
+					"source" : "src/components",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "LucyDreams",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "Utilities",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "Handlers",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "Components",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "Components::@5f058954a33b636d3372",
+					"jsonFile" : "target-Components-Debug-b2475497b8335c01d686.json",
+					"name" : "Components",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "Handlers::@b1ed911f96b66699a7a1",
+					"jsonFile" : "target-Handlers-Debug-eb2aef26c585b3dc8e57.json",
+					"name" : "Handlers",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "LucyDreams::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LucyDreams-Debug-b015d85f604d7feb4255.json",
+					"name" : "LucyDreams",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "Utilities::@f1b38b22aeb65474a6c5",
+					"jsonFile" : "target-Utilities-Debug-c1eac3c9883d075d7b65.json",
+					"name" : "Utilities",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/pluto/Documents/Programming/LucyDreams/build",
+		"source" : "/home/pluto/Documents/Programming/LucyDreams"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

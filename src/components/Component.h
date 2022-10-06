@@ -1,6 +1,6 @@
 #ifndef SRC_COMPONENT_H
 #define SRC_COMPONENT_H
-#include "../../GameObject.h"
+#include "../GameObject.h"
 class Component : public GameObject
 {
 private:

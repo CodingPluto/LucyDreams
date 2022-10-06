@@ -1,7 +1,7 @@
 #ifndef SRC_CAMERA_HANDLER_H
 #define SRC_CAMERA_HANDLER_H
 #include "Handler.h"
-#include "../Camera.h"
+#include "Camera.h"
 #include "../Position.h"
 class CameraHandler : public Handler
 {
