@@ -3,6 +3,13 @@
 #include "Handler.h"
 #include <SDL2/SDL.h>
 #include <vector>
+#include <functional>
+/*
+struct EventCallbackIdentifier
+{
+    EventCallback * const pEventCallback;
+    std::string name;
+}*/
 class EventsHandler : public Handler
 {
 private:
@@ -10,6 +17,7 @@ private:
     std::vector<class EventCallback*> eventCallbacks;
     static void exitCallBack();
 public:
+    void addEventCallback(Uint32 trigger, std::function<void()> &callBackFunction);
     bool initalize();
     EventsHandler();
     ~EventsHandler();

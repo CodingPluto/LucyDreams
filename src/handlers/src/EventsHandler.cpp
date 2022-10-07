@@ -47,3 +47,7 @@ HandlerError* EventsHandler::tick()
 }
 
 
+void EventsHandler::addEventCallback(Uint32 trigger, function<void()> &callBackFunction)
+{
+    eventCallbacks.emplace_back(new EventCallback(trigger,callBackFunction));
+}

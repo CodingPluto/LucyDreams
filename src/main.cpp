@@ -31,9 +31,9 @@ public:
     }
     void update()
     {
-        if (game->inputHandler->keyJustPressed(SDL_SCANCODE_W))
+        if (game->inputHandler->isLMBOneClick())
         {
-            cout << "W pressed" << endl;
+            cout << "mouse press!" << endl;
         }
         changePosition(0,0);
         displayPosition();
