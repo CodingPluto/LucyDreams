@@ -54,8 +54,8 @@ public:
     bool keyState(SDL_Scancode key);
     */
     void reloadGameObjProrities();
-    void addGameObj(GameObject *address);
-    void removeGameObj(GameObject *address);
+    void addGameObject(GameObject *address);
+    void removeGameObject(GameObject *address);
 };
 
 #endif

@@ -14,19 +14,15 @@ using namespace std;
 class Tim : public Sprite
 {
 private:
-    AnimationComponent animation;
     ImageComponent image;
     Trigger trigger;
 
 public:
-    Tim(): animation(this), image(this), trigger(this, 100)
+    Tim(): image(this), trigger(this, 100)
     {
         image.setImage("stars.png");
         image.setRelativeScale(0.5);
         image.setDrawOrder(0);
-        animation.setDrawOrder(1);
-        animation.addAnimation(vector<string>{"stars.png","COOKIE.png","COOKIE.png","background.png"},"test",1,true);
-        animation.changeConfiguration("test");
         cout << "Tim Created!" << endl;
         scale = 1;
         position.x = 0;

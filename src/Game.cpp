@@ -74,9 +74,13 @@ void Game::getInput()
 void Game::updateGame()
 {
     updateHandlers(hp_OnUpdate);
+    
     for (GameObject *gameObject : gameObjects)
     {
-        gameObject->update();
+        if (gameObject->getGameObjectStatus())
+        {
+            gameObject->update();
+        }
     }
 }
 
@@ -125,7 +129,7 @@ void Game::addHandler(Handler *handler, hp__HandlerTickPoint tickPoint)
 {
     if (gameRunning)
     {
-        throw runtime_error("A handler added past game initalization. Undefined behaviour.");
+        throw runtime_error("A handler added past game initalization. Not allowed.");
     }
     organisedHandlers[tickPoint].emplace_back(handler);
 }
@@ -154,7 +158,7 @@ void Game::initalize()
     
 }
 
-void Game::addGameObj(GameObject *address)
+void Game::addGameObject(GameObject *address)
 {
     gameObjects.emplace_back(address);
 }
@@ -199,7 +203,7 @@ void Game::reloadGameObjProrities()
     cout << endl;
 }
 
-void Game::removeGameObj(GameObject *address)
+void Game::removeGameObject(GameObject *address)
 {
     for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
     {

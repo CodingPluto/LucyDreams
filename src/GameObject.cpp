@@ -12,18 +12,19 @@ void GameObject::setupGameObjs(Game *gameInst)
 }
 
 GameObject::GameObject(){
-    this->priority = 0;
+    gs = gs_Enabled;
     if (game == nullptr)
     {
         throw "You haven't setup the game instance for the Game Objects.";
     }
     cout << "Game Object Created ("  << this << ")" << endl;
-    game->addGameObj(this);
+    game->addGameObject(this);
 }
 
 GameObject::~GameObject()
 {
-    game->removeGameObj(this);
+    gs = gs_Removed;
+    game->removeGameObject(this);
     cout << "Game Object Destroyed ("  << this << ")" << endl;
 }
 
@@ -36,4 +37,19 @@ void GameObject::setUpdateOrder(int priority)
 {
     this->priority = priority;
     game->reloadGameObjProrities();
+}
+
+void GameObject::enable()
+{
+    gs = gs_Enabled;
+}
+
+void GameObject::disable()
+{
+    gs = gs_Disabled;
+}
+
+gs__GameObjectStatus GameObject::getGameObjectStatus()
+{
+    return gs;
 }

@@ -8,8 +8,7 @@ class Trigger : public GameObject
 public:
     Trigger(const class Sprite *target, const unsigned int detectionRange);
     Trigger(std::vector<const class Sprite*> targets, const unsigned int detectionRange);
-    void enable();
-    void disable();
+
     ~Trigger();
 private:
     bool enabled;

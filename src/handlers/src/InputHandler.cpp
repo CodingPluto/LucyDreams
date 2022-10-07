@@ -6,10 +6,6 @@ using namespace std;
 
 HandlerError *InputHandler::tick()
 {
-    if (keysPressed[SDL_SCANCODE_W] && !keysPressedLastFrame[SDL_SCANCODE_W])
-    {
-        cout << "Key Just Pressed!" << ": " << SDL_SCANCODE_W << ": " << keysPressed[SDL_SCANCODE_W] << endl;
-    }
     for (int keyID = 0; keyID < SDL_NUM_SCANCODES; ++keyID)
     {
         keysJustPressed[keyID] = (keysPressed[keyID] && !keysPressedLastFrame[keyID]);

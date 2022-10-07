@@ -20,13 +20,3 @@ void Trigger::update()
 {
     cout << "I'm a trigger and I'm updating." << endl;
 }
-
-void Trigger::enable()
-{
-    enabled = true;
-}
-
-void Trigger::disable()
-{
-    enabled = false;
-}
