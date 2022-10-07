@@ -8,6 +8,7 @@
 #include "handlers/InputHandler.h"
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
+#include "Trigger.h"
 using namespace std;
 
 class Tim : public Sprite
@@ -15,9 +16,10 @@ class Tim : public Sprite
 private:
     AnimationComponent animation;
     ImageComponent image;
+    Trigger trigger;
 
 public:
-    Tim(): animation(this), image(this)
+    Tim(): animation(this), image(this), trigger(this, 100)
     {
         image.setImage("stars.png");
         image.setRelativeScale(0.5);
