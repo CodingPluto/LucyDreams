@@ -8,8 +8,62 @@
 #include "handlers/InputHandler.h"
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
+#include "colliders/AABBCollider.h"
+//#include "Lucy.h"
 #include "Trigger.h"
 using namespace std;
+
+class LucyDreams : public Game
+{
+    vector<GameObject*> loadedSprites;
+    vector<AABBCollider*> colliders;
+    void loadHandlers()
+    {
+        windowHandler = new WindowHandler("Lucy Dreams!",0,0,500,500);
+        eventsHandler = new EventsHandler();
+        inputHandler = new InputHandler();
+        cameraHandler = new CameraHandler();
+        imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
+    }
+    void loadGameData()
+    {
+    }
+public:
+    ~LucyDreams()
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            for (auto handler : organisedHandlers[i])
+            {
+                delete handler;
+            }
+        }
+        for (GameObject *loadedSprite : loadedSprites)
+        {
+            delete loadedSprite;
+        }
+    }
+};
+
+
+int main(int argc, char *argv[])
+{
+    LucyDreams game;
+    game.initalize();
+}
+
+
+/*
+
+
+        AABBCollider *aabbCollider = new AABBCollider(0,0,100,100);
+        colliders.emplace_back(aabbCollider);
+        aabbCollider->setAABBColliders(colliders);
+        AABBCollider *aabbCollider2 = new AABBCollider(50,50,100,100);
+        colliders.emplace_back(aabbCollider2);
+        aabbCollider2->setAABBColliders(colliders);
+        loadedSprites.emplace_back(aabbCollider);
+        loadedSprites.emplace_back(aabbCollider2);
 
 class Tim : public Sprite
 {
@@ -49,42 +103,4 @@ public:
         cout << "finished update" << endl;
     }
 };
-class LucyDreams : public Game
-{
-    vector<GameObject*> loadedSprites;
-    void loadHandlers()
-    {
-        windowHandler = new WindowHandler("Lucy Dreams!",0,0,500,500);
-        eventsHandler = new EventsHandler();
-        inputHandler = new InputHandler();
-        cameraHandler = new CameraHandler();
-        imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
-    }
-    void loadGameData()
-    {
-        loadedSprites.emplace_back(new Tim());
-    }
-public:
-    ~LucyDreams()
-    {
-        for (int i = 0; i < 4; ++i)
-        {
-            for (auto handler : organisedHandlers[i])
-            {
-                delete handler;
-            }
-        }
-        for (GameObject *loadedSprite : loadedSprites)
-        {
-            delete loadedSprite;
-        }
-    }
-};
-
-
-
-int main(int argc, char *argv[])
-{
-    LucyDreams game;
-    game.initalize();
-}
+*/

@@ -63,7 +63,7 @@ void ImageComponent::displayDebug()
     corner.y = imgRect.y;
     corner.w = getScale() * 2;
     corner.h = getScale() * 2;
-    game->imageHandler->drawRect(&corner,{237, 0, 0,50},true,false);
+    game->imageHandler->drawRect(&corner,{237, 0, 0,50},false,true);
 }
 
 ImageComponent::ImageComponent(Sprite *sprite):Component(sprite)

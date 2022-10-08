@@ -20,7 +20,7 @@ void Sprite::displayPosition()
     rect.y = position.y;
     rect.w = scale * 10;
     rect.h = scale * 10;
-    game->imageHandler->drawRect(&rect,{0, 237, 0, 50},false,isPositionRelative);
+    game->imageHandler->drawRect(&rect,{0, 237, 0, 50},isPositionRelative,false);
 }
 
 Position2 Sprite::getPreviousPosition()

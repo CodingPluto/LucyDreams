@@ -5,7 +5,15 @@ using namespace std;
 Component::Component(Sprite *sprite)
 {
     owner = sprite;
-    setUpdateOrder(owner->getUpdateOrder() + 1);
+    if (owner)
+    {
+        setUpdateOrder(owner->getUpdateOrder() + 1);
+    }
+    else
+    {
+        setUpdateOrder(100);
+    }
+    cout << "Created component!" << endl;
 }
 Component::Component()
 {}

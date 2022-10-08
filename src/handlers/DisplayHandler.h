@@ -15,7 +15,7 @@ public:
     void setWindowTarget(class SDL_Window* window);
     bool initalize();
     HandlerError* tick();
-    void drawRect(class SDL_Rect *rect, ColourRGBA rgba, bool filled, bool relative);
+    void drawRect(class SDL_Rect *rect, ColourRGBA rgba, bool relative, bool filled);
     void setDrawColour(ColourRGBA rgba);
 
 };

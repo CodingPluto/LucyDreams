@@ -7,11 +7,11 @@ private:
     float relativeScale = 1;
 protected:
     class Sprite *owner = nullptr;
-    Component();
 public:
     float getScale();
     void setRelativeScale(float scale);
     
+    Component();
     Component(class Sprite *sprite);
 };
 

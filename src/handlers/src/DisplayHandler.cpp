@@ -51,7 +51,7 @@ HandlerError* DisplayHandler::tick()
 }
 
 
-void DisplayHandler::drawRect(SDL_Rect *rect, ColourRGBA rgba, bool filled, bool relative)
+void DisplayHandler::drawRect(SDL_Rect *rect, ColourRGBA rgba, bool relative, bool filled)
 {
     if (relative)
     {
