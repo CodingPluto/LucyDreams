@@ -1,7 +1,7 @@
 #include "../../handlers/ImageHandler.h"
 #include "../../handlers/DisplayHandler.h"
 #include "../../handlers/WindowHandler.h"
-#include "../../handlers/CameraHandler.h"
+#include "../../handlers/Camera.h"
 #include "../ImageComponent.h"
 #include "../../Sprite.h"
 using namespace std;
@@ -33,6 +33,15 @@ void ImageComponent::setImage(string imageName)
         imageComponentInitalized = true;
         game->imageHandler->reloadImageDrawerProrities();
     }
+    if (cameraInstance)
+    {
+        cameraInstance->onImageSet();
+    }
+}
+
+void ImageComponent::setCameraInstance(class Camera *camera)
+{
+    cameraInstance = camera;
 }
 
 void ImageComponent::update()
@@ -40,21 +49,21 @@ void ImageComponent::update()
 
 void ImageComponent::updateImageRect()
 {
-    imgRect.x = owner->getX() + (imageOffset.x * getScale()) - game->cameraHandler->getCameraOffset().x;
-    imgRect.y = owner->getY() + (imageOffset.y * getScale()) - game->cameraHandler->getCameraOffset().y;
+    imgRect.x = owner->getX() + (imageOffset.x * getScale());
+    imgRect.y = owner->getY() + (imageOffset.y * getScale());
     imgRect.w = textureWidth * getScale();
     imgRect.h = textureHeight * getScale();
 }
 
 void ImageComponent::displayDebug()
 {
-    game->displayHandler->drawRect(&imgRect,{25, 18, 100,50});
+    game->imageHandler->drawRect(&imgRect,{25, 18, 100,50},false,false);
     SDL_Rect corner;
     corner.x = imgRect.x;
     corner.y = imgRect.y;
     corner.w = getScale() * 2;
     corner.h = getScale() * 2;
-    game->displayHandler->drawFilledRect(&corner,{237, 0, 0,50});
+    game->imageHandler->drawRect(&corner,{237, 0, 0,50},true,false);
 }
 
 ImageComponent::ImageComponent(Sprite *sprite):Component(sprite)
@@ -93,18 +102,10 @@ void ImageComponent::draw()
     if (shown)
     {
         updateImageRect();
-        bool insideScreen =
-        (imgRect.x < game->windowHandler->getScreenWidth())
-        && (imgRect.x + imgRect.w > 0)
-        && (imgRect.y < game->windowHandler->getScreenHeight())
-        && (imgRect.y + imgRect.h > 0);
-        if (insideScreen)
+        game->imageHandler->drawImage(&imgRect,imageName,owner->getIsPositionRelative(),isImageFlipped);
+        if (VISUAL_DEGUG_MODE)
         {
-            game->imageHandler->drawImage(&imgRect,imageName,isImageFlipped);
-            if (VISUAL_DEGUG_MODE)
-            {
-                displayDebug();
-            }
+            displayDebug();
         }
     }
 }
@@ -127,4 +128,9 @@ void ImageComponent::setDrawOrder(int priority)
 {
     drawPriority = priority;
     game->imageHandler->reloadImageDrawerProrities();
+}
+
+std::string ImageComponent::getImageName()
+{
+    return imageName;
 }

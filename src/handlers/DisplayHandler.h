@@ -5,18 +5,19 @@
 class DisplayHandler : public Handler
 {
 private:
+    class SDL_Window *window;
+protected:
+    class CameraHandler *cameraHandler;
     class WindowHandler *windowHandler;
     class SDL_Renderer *renderer;
-    class SDL_Window *window;
 public:
-    DisplayHandler(class WindowHandler *windowHandler);
+    DisplayHandler(class WindowHandler *windowHandler, class CameraHandler *cameraHandler);
     void setWindowTarget(class SDL_Window* window);
     bool initalize();
     HandlerError* tick();
-    void drawRect(class SDL_Rect *rect, ColourRGBA rgba);
-    void drawFilledRect(class SDL_Rect *rect, ColourRGBA rgba);
+    void drawRect(class SDL_Rect *rect, ColourRGBA rgba, bool filled, bool relative);
     void setDrawColour(ColourRGBA rgba);
-    void linkToImageHandler(class ImageHandler *imageHandler);
 
 };
+
 #endif

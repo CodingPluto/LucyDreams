@@ -40,7 +40,6 @@ private:
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
     class WindowHandler *windowHandler = nullptr;
-    class DisplayHandler *displayHandler = nullptr;
     class EventsHandler *eventsHandler = nullptr; 
     class ImageHandler *imageHandler = nullptr;
     class CameraHandler *cameraHandler = nullptr;

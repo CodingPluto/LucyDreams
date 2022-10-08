@@ -3,29 +3,27 @@
 #include "../ImageHandler.h"
 #include "../DisplayHandler.h"
 #include "../../components/ImageComponent.h"
+#include "../CameraHandler.h"
+#include "../WindowHandler.h"
 
 using namespace std;
 
 
-ImageHandler::ImageHandler(DisplayHandler *displayHandler, string workspacePath):Handler(hp_OnRender), workspacePath(workspacePath)
+ImageHandler::ImageHandler(WindowHandler *windowHandler, CameraHandler *cameraHandler, string workspacePath):DisplayHandler(windowHandler,cameraHandler), workspacePath(workspacePath)
 {
     debugName = "Image Handler";
-    this->displayHandler = displayHandler;
 }
 
 bool ImageHandler::initalize()
 {
-    displayHandler->linkToImageHandler(this);
-    IMG_Init(IMG_INIT_PNG);
-    if (renderer == nullptr)
+    if (!DisplayHandler::initalize())
     {
         return false;
     }
+    cout << renderer << endl;
+    cout << windowHandler << endl;
+    IMG_Init(IMG_INIT_PNG);
     return true;
-}
-void ImageHandler::setRenderer(SDL_Renderer *renderer)
-{
-    this->renderer = renderer;
 }
 
 void ImageHandler::loadImage(string imagePath)
@@ -48,28 +46,58 @@ SDL_Texture* ImageHandler::getImageTexture(string imageName)
     return textureBank.at(imageName);
 }
 
-void ImageHandler::drawImage(SDL_Rect *rect, string imageName)
+void ImageHandler::drawImage(SDL_Rect *rect, string imageName, bool relative)
 {
+    if (relative)
+    {
+        rect->x -= cameraHandler->getCameraOffset().x;
+        rect->y -= cameraHandler->getCameraOffset().y;
+    }
+    bool insideScreen =
+    (rect->x < windowHandler->getScreenWidth())
+    && (rect->x + rect->w > 0)
+    && (rect->y < windowHandler->getScreenHeight())
+    && (rect->y + rect->h > 0);
     SDL_RenderCopyEx(renderer,textureBank[imageName],nullptr,rect,0,nullptr,SDL_FLIP_NONE);
 }
-void ImageHandler::drawImage(SDL_Rect *rect, string imageName, SDL_RendererFlip flipTags)
+void ImageHandler::drawImage(SDL_Rect *rect, string imageName, bool relative, SDL_RendererFlip flipTags)
 {
+    if (relative)
+    {
+        rect->x -= cameraHandler->getCameraOffset().x;
+        rect->y -= cameraHandler->getCameraOffset().y;
+    }
+    bool insideScreen =
+    (rect->x < windowHandler->getScreenWidth())
+    && (rect->x + rect->w > 0)
+    && (rect->y < windowHandler->getScreenHeight())
+    && (rect->y + rect->h > 0);
     SDL_RenderCopyEx(renderer,textureBank[imageName],nullptr,rect,0,nullptr,flipTags);
 }
 
-void ImageHandler::drawImage(int x, int y, int width, int height, string imageName)
+void ImageHandler::drawImage(int x, int y, int width, int height, string imageName, bool relative)
 {
     SDL_Rect rect;
     rect.x = x;
     rect.y = y;
     rect.w = width;
     rect.h = height;
+    if (relative)
+    {
+        rect.x -= cameraHandler->getCameraOffset().x;
+        rect.y -= cameraHandler->getCameraOffset().y;
+    }
+    bool insideScreen =
+    (rect.x < game->windowHandler->getScreenWidth())
+    && (rect.x + rect.w > 0)
+    && (rect.y < game->windowHandler->getScreenHeight())
+    && (rect.y + rect.h > 0);
     SDL_RenderCopyEx(renderer,textureBank[imageName],nullptr,&rect,0,nullptr,SDL_FLIP_NONE);
 }
 
 HandlerError *ImageHandler::tick()
 {
-    // No ImageComponents have been added to it, so nothing happens.
+    DisplayHandler::tick();
     for (auto imageDrawer : imageDrawers)
     {
         imageDrawer->draw();

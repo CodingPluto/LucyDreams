@@ -1,10 +1,16 @@
 #include <SDL2/SDL.h>
 #include "Sprite.h"
-#include "handlers/DisplayHandler.h"
+#include "handlers/ImageHandler.h"
+#include "handlers/CameraHandler.h"
 // Public functions
 Sprite::Sprite()
 {
     scale = 1;
+    isPositionRelative = true;
+}
+bool Sprite::getIsPositionRelative()
+{
+    return isPositionRelative;
 }
 
 void Sprite::displayPosition()
@@ -14,12 +20,21 @@ void Sprite::displayPosition()
     rect.y = position.y;
     rect.w = scale * 10;
     rect.h = scale * 10;
-    game->displayHandler->drawRect(&rect,{0, 237, 0, 50});
+    game->imageHandler->drawRect(&rect,{0, 237, 0, 50},false,isPositionRelative);
 }
 
 Position2 Sprite::getPreviousPosition()
 {
     return previousPosition;
+}
+
+Position2 Sprite::getAbsolutePosition()
+{
+    if (isPositionRelative)
+    {
+        return position - game->cameraHandler->getCameraOffset();
+    }
+    return position;
 }
 
 void Sprite::syncPositions()

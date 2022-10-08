@@ -3,6 +3,7 @@
 #define VISUAL_DEGUG_MODE 1
 #include <vector>
 #include <SDL2/SDL.h>
+#include <functional>
 #include "Component.h"
 #include "../Position.h"
 
@@ -15,6 +16,7 @@ private:
     int drawPriority;
 protected:
     SDL_Texture* getLoadedImage(std::string path);
+    class Camera *cameraInstance = nullptr;
     bool shown;
     int textureWidth;
     int textureHeight;
@@ -24,8 +26,10 @@ protected:
     SDL_RendererFlip isImageFlipped;
     Position2 imageOffset;
 public:
+    std::string getImageName();
     int getDrawOrder();
     void setDrawOrder(int priority);
+    void setCameraInstance(class Camera *camera);
     void show();
     void hide();
     void setImageOffset(Position2 offset);

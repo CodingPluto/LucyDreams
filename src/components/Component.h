@@ -8,8 +8,8 @@ private:
 protected:
     class Sprite *owner = nullptr;
     Component();
-    float getScale();
 public:
+    float getScale();
     void setRelativeScale(float scale);
     
     Component(class Sprite *sprite);

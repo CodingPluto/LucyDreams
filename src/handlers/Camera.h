@@ -5,11 +5,13 @@ class Camera
 {
 private:
     class Sprite *owner;
+    class ImageComponent *image;
     Position2 camOffset;
     int textureWidth;
     int textureHeight;
 public:
-    Camera(class Sprite *owner, std::string imageName);
+    void onImageSet();
+    Camera(class Sprite *owner, class ImageComponent *image);
     Camera();
     Position2 cameraUpdate();
 

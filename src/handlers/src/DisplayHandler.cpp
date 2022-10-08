@@ -1,6 +1,8 @@
 #include "../DisplayHandler.h"
 #include "../WindowHandler.h"
 #include "../ImageHandler.h"
+#include "../CameraHandler.h"
+#include "../../Game.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 using namespace std;
@@ -9,7 +11,7 @@ using namespace std;
 #define DEFAULT_BLUE 241
 #define DEFAULT_ALPHA 255
 
-DisplayHandler::DisplayHandler(WindowHandler *windowHandler):Handler(hp_OnRender),windowHandler(windowHandler)
+DisplayHandler::DisplayHandler(WindowHandler *windowHandler, CameraHandler *cameraHandler):Handler(hp_OnRender),windowHandler(windowHandler),cameraHandler(cameraHandler)
 {
     debugName = "Display Handler";
 }
@@ -29,6 +31,8 @@ bool DisplayHandler::initalize()
         return false;
     }
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    cout << renderer << endl;
+    cout << window << endl;
     return true;
 }
 
@@ -47,25 +51,24 @@ HandlerError* DisplayHandler::tick()
 }
 
 
-void DisplayHandler::drawRect(SDL_Rect *rect, ColourRGBA rgba)
+void DisplayHandler::drawRect(SDL_Rect *rect, ColourRGBA rgba, bool filled, bool relative)
 {
+    if (relative)
+    {
+        rect->x -= cameraHandler->getCameraOffset().x;
+        rect->y -= cameraHandler->getCameraOffset().y;
+    }
     setDrawColour(rgba);
     SDL_RenderDrawRect(renderer,rect);
+    if (filled)
+    {
+        SDL_RenderFillRect(renderer,rect);
+    }
 }
 
-void DisplayHandler::drawFilledRect(SDL_Rect *rect, ColourRGBA rgba)
-{
-    setDrawColour(rgba);
-    SDL_RenderDrawRect(renderer,rect);
-    SDL_RenderFillRect(renderer,rect);
-}
 
 
 void DisplayHandler::setDrawColour(ColourRGBA rgba)
 {
     SDL_SetRenderDrawColor(renderer,rgba.r,rgba.g,rgba.b,rgba.a);
-}
-void DisplayHandler::linkToImageHandler(ImageHandler *imageHandler)
-{
-    imageHandler->setRenderer(renderer);
 }

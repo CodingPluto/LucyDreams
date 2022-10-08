@@ -16,25 +16,37 @@ class Tim : public Sprite
 private:
     ImageComponent image;
     Trigger trigger;
+    Camera camera;
 
 public:
-    Tim(): image(this), trigger(this, 100)
+    Tim(): image(this), trigger(this, 100), camera(this, &image)
     {
+        isPositionRelative = true;
         image.setImage("stars.png");
-        image.setRelativeScale(0.5);
+        image.setRelativeScale(0.1);
         image.setDrawOrder(0);
         cout << "Tim Created!" << endl;
         scale = 1;
         position.x = 0;
+        game->cameraHandler->setActiveCamera(&camera);
     }
     void update()
     {
+        cout << "starting update " << endl;
+        SDL_Rect rect;
+        rect.x = 0;
+        rect.y = 0;
+        rect.w = 50;
+        rect.h = 50;
+        //game->displayHandler->drawRect(&rect,{0,0,0,255},true,false);
         if (game->inputHandler->isLMBOneClick())
         {
             cout << "mouse press!" << endl;
         }
-        changePosition(0,0);
+        cout << getAbsolutePosition() << endl;
+        changePosition(1,0);
         displayPosition();
+        cout << "finished update" << endl;
     }
 };
 class LucyDreams : public Game
@@ -43,11 +55,10 @@ class LucyDreams : public Game
     void loadHandlers()
     {
         windowHandler = new WindowHandler("Lucy Dreams!",0,0,500,500);
-        displayHandler = new DisplayHandler(windowHandler);
         eventsHandler = new EventsHandler();
         inputHandler = new InputHandler();
         cameraHandler = new CameraHandler();
-        imageHandler = new ImageHandler(displayHandler,"/home/pluto/Documents/Programming/LucyDreams/assets/images/");
+        imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
     }
     void loadGameData()
     {

@@ -11,6 +11,7 @@ class Sprite : public GameObject
 private:
 
 protected:
+    bool isPositionRelative;
     Position2 position;
     Position2 previousPosition;
     float scale;
@@ -22,8 +23,10 @@ public:
     Sprite();
 
     // Position
+    bool getIsPositionRelative();
     Position2 getPosition();
     Position2 getPreviousPosition();
+    Position2 getAbsolutePosition();
     float getX();
     float getY();
     void setPosition(float x, float y);
