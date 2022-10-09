@@ -2,8 +2,8 @@
 #define SRC_LUCY_H
 #include <string>
 #include "components/AnimationComponent.h"
-#include "handlers/PlatformerCollision.h"
-#include "Camera.h"
+#include "colliders/PlatformerCollision.h"
+#include "handlers/Camera.h"
 enum ls__LucyState
 {
     ls_Running,
@@ -27,6 +27,12 @@ private:
     Position2 velocity;
     static const std::string lucyImagesPath;
     Camera playerCamera;
+    static const int defaultRunSpeed = 140;
+    static const int maxRunSpeed = 400;
+    static const int terminalVelocity = 5000;
+    static const int jumpHeight = 400;
+    static const int fallSpeed = 25;
+    static const int lucyScale = 2;
 
     bool onGround();
     void resetFrameVariables();

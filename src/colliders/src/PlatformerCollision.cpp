@@ -47,12 +47,13 @@ void PlatformerCollision::moveAndCollide()
     }
 }
 
-PlatformerCollision::PlatformerCollision(float w, float h, vector<AABBCollider*> &colliderGroup): collisionChecker(position.x,position.y,w,h)
+PlatformerCollision::PlatformerCollision(vector<AABBCollider*> &colliderGroup, float hitboxWidth, float hitboxHeight): collisionChecker(position.x,position.y,hitboxWidth,hitboxHeight)
 {
     touching[COLL_LEFT_WALL] = false;
     touching[COLL_RIGHT_WALL] = false;
     touching[COLL_FLOOR] = false;
     touching[COLL_CEILING] = false;
+
     collisionChecker.setAABBColliders(colliderGroup);
     colliderGroup.emplace_back(&collisionChecker);
     /* If Seg Fault:

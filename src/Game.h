@@ -39,6 +39,7 @@ private:
     std::vector<HandlerError*> errorsOnTick;
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
+    const bool debugMode = false;
     class WindowHandler *windowHandler = nullptr;
     class EventsHandler *eventsHandler = nullptr; 
     class ImageHandler *imageHandler = nullptr;

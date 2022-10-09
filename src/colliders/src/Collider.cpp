@@ -39,7 +39,6 @@ void Collider::checkCollision(CollisionType collisionType)
 
 void Collider::update()
 {
-    cout << "Updating!" << endl;
     if (DEBUG_COLLISION)
     {
         debugCollision();

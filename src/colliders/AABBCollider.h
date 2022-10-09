@@ -5,6 +5,8 @@
 class AABBCollider : public Collider
 {
 private:
+    float rawWidth;
+    float rawHeight;
 public:
     float width;
     float height;
@@ -13,6 +15,7 @@ public:
     void debugCollision() final;
     void AABBCollision() final;
     void circularCollision() final;
+    void updateDimensions() final;
     bool isOverlapping(const AABBCollider *collider);
 };
 

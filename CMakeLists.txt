@@ -27,8 +27,8 @@ add_executable(LucyDreams
     src/Sprite.h
     src/Trigger.cpp
     src/Trigger.h
-    #src/Lucy.h
-    #src/Lucy.cpp
+    src/Lucy.h
+    src/Lucy.cpp
 )
 target_include_directories(LucyDreams PUBLIC
 "${PROJECT_BINARY_DIR}"

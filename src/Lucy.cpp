@@ -1,20 +1,18 @@
 #include "Lucy.h"
-#include "utils.h"
-#define DEFAULT_RUN_SPEED 140
-#define MAX_RUN_SPEED 400
-#define TERMINAL_VELOCITY 5000
-#define JUMP_HEIGHT 400
-#define FALL_SPEED 25
-#define LUCY_SCALE 2
+#include "handlers/InputHandler.h"
+#include "handlers/CameraHandler.h"
+
+#include "utils/utils.h"
 using namespace std;
 
-const string Lucy::lucyImagesPath = imagesPath + "lucyAnimations/";
+const string Lucy::lucyImagesPath = "lucyAnimations/";
 
 
 
-Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(12 * LUCY_SCALE,24 * LUCY_SCALE,platforms), lucyAnimation(this), playerCamera(this)
+Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(platforms,12,24), lucyAnimation(this), playerCamera(this,&lucyAnimation)
 {
-    setScale(LUCY_SCALE);
+    isPositionRelative = true;
+    scale = 2;
     position = Position2(100,100);
     auto getAnimation = [](string pathName, int size)
     {
@@ -25,12 +23,13 @@ Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(12 * LUCY
         }
         return paths;
     };
-    lucyAnimation.addAnimation(getAnimation("lucy_running",8), "run", 0.2);
-    lucyAnimation.addAnimation(getAnimation("lucy_idle",9), "idle", 0.4);
-    lucyAnimation.addAnimation(getAnimation("lucy_fall",4), "fall", 0.1);
-    lucyAnimation.addAnimation(getAnimation("lucy_jump",8), "jump", 0.03);
+    lucyAnimation.addAnimation(getAnimation("lucy_running",8), "run", 0.2, false);
+    lucyAnimation.addAnimation(getAnimation("lucy_idle",9), "idle", 0.4, false);
+    lucyAnimation.addAnimation(getAnimation("lucy_fall",4), "fall", 0.1, false);
+    lucyAnimation.addAnimation(getAnimation("lucy_jump",8), "jump", 0.03, false);
     lucyAnimation.addAnimation(getAnimation("lucy_die",8), "die", 0.1, false);
-    game->setActiveCamera(&playerCamera);
+    lucyAnimation.changeConfiguration("idle");
+    game->cameraHandler->setActiveCamera(&playerCamera);
 }
 bool Lucy::onGround()
 {
@@ -68,11 +67,11 @@ void Lucy::enforceState(ls__LucyState currentState)
 {
     if (currentState == ls_Running && lucyAnimation.getFlippedStatus() == SDL_FLIP_NONE)
     {
-        lucyAnimation.setImageOffset(-2,0);
+        lucyAnimation.setImageOffset({-2,0});
     }
     else
     {
-        lucyAnimation.setImageOffset(0,0);
+        lucyAnimation.setImageOffset({0,0});
     }
     if (previousState != currentState)
     {
@@ -98,7 +97,6 @@ void Lucy::enforceState(ls__LucyState currentState)
     }
     if (touching[COLL_CEILING])
     {
-        cout << velocity.y << endl;
         clampMin(velocity.y, 0);
     }
     previousState = currentState;
@@ -107,34 +105,35 @@ void Lucy::enforceState(ls__LucyState currentState)
 
 void Lucy::handleInput()
 {
-    if (game->keyState(SDL_SCANCODE_D) || game->keyState(SDL_SCANCODE_RIGHT))
+    if (game->inputHandler->keyPressed(SDL_SCANCODE_D) || game->inputHandler->keyPressed(SDL_SCANCODE_RIGHT))
     {
-        velocity.x += DEFAULT_RUN_SPEED;
+        velocity.x += defaultRunSpeed;
         lucyAnimation.setImageFlip(SDL_FLIP_NONE);
     }
-    if (game->keyState(SDL_SCANCODE_A) || game->keyState(SDL_SCANCODE_LEFT))
+    if (game->inputHandler->keyPressed(SDL_SCANCODE_A) || game->inputHandler->keyPressed(SDL_SCANCODE_LEFT))
     {
-        velocity.x -= DEFAULT_RUN_SPEED;
+        velocity.x -= defaultRunSpeed;
         lucyAnimation.setImageFlip(SDL_FLIP_HORIZONTAL);
     }
-    if (game->keyState(SDL_SCANCODE_W) || game->keyState(SDL_SCANCODE_UP))
+    if (game->inputHandler->keyPressed(SDL_SCANCODE_W) || game->inputHandler->keyPressed(SDL_SCANCODE_UP))
     {
-        if (onGround()) velocity.y -= JUMP_HEIGHT;
+        if (onGround()) velocity.y -= jumpHeight;
     }
-    if (abs(velocity.x) > MAX_RUN_SPEED) velocity.x = sign(velocity.x) * (MAX_RUN_SPEED);
+    if (abs(velocity.x) > maxRunSpeed) velocity.x = sign(velocity.x) * (maxRunSpeed);
 
 }
 
 
 void Lucy::update()
 {
+    cout << getAbsolutePosition() << endl;
     resetFrameVariables();
     handleInput();
 
-    velocity.y += FALL_SPEED;
+    velocity.y += fallSpeed;
     if (touching[COLL_FLOOR]) velocity.y = 0;
     velocity.x = velocity.x * 0.8;
-    clampMax(velocity.y, (float) TERMINAL_VELOCITY);
+    clampMax(velocity.y, (float) terminalVelocity);
 
     enforceState(determineState());
     //outputCollisions();

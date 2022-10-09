@@ -8,11 +8,10 @@ using namespace std;
 void AABBCollider::debugCollision()
 {
     SDL_Rect rect;
-    rect.x = position.x + game->cameraHandler->getCameraOffset().x;
-    rect.y = position.y + game->cameraHandler->getCameraOffset().y;
+    rect.x = position.x;
+    rect.y = position.y;
     rect.w = width;
     rect.h = height;
-    cout << "debugged collision!" << endl;
     bool relativePosition;
     if (owner)
     {
@@ -32,12 +31,12 @@ void AABBCollider::debugCollision()
     }
 }
 
-AABBCollider::AABBCollider(float x, float y, float width, float height, Sprite *owner): Collider(owner)
+AABBCollider::AABBCollider(float x, float y, float rawWidth, float rawHeight, Sprite *owner): Collider(owner)
 {
     position.x = x;
     position.y = y;
-    this->width = width;
-    this->height = height;
+    this->rawWidth = rawWidth;
+    this->rawHeight = rawHeight;
     cout << "AABB Collider created!" << endl;
 }
 
@@ -53,7 +52,6 @@ void AABBCollider::AABBCollision()
 {
     for (auto const &collider : *AABBColliders)
     {
-        cout << "checking for collisions" << endl;
         if (collider != this)
         {
             if (isOverlapping(collider))
@@ -76,4 +74,14 @@ bool AABBCollider::isOverlapping(const AABBCollider *collider)
 
 void AABBCollider::circularCollision()
 {
+}
+
+
+void AABBCollider::updateDimensions()
+{
+    if (owner)
+    {
+        width = rawWidth * getScale();
+        height = rawHeight * getScale();
+    }
 }

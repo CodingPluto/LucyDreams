@@ -17,6 +17,7 @@ protected:
     Collider(class Sprite *owner);
     Collider();
     virtual void debugCollision() = 0;
+    virtual void updateDimensions() = 0;
     virtual void AABBCollision() = 0;
     virtual void circularCollision() = 0;
 

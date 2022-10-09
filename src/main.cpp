@@ -9,7 +9,7 @@
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
 #include "colliders/AABBCollider.h"
-//#include "Lucy.h"
+#include "Lucy.h"
 #include "Trigger.h"
 using namespace std;
 
@@ -27,6 +27,7 @@ class LucyDreams : public Game
     }
     void loadGameData()
     {
+        loadedSprites.emplace_back(new Lucy(colliders));
     }
 public:
     ~LucyDreams()

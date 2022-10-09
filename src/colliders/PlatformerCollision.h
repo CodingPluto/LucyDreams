@@ -22,7 +22,7 @@ protected:
 
 
 public:
-    PlatformerCollision(float w, float h, std::vector<AABBCollider*> &colliderGroup);
+    PlatformerCollision(std::vector<AABBCollider*> &colliderGroup, float hitboxWidth, float hitboxHeight);
     void moveAndCollide();
     void outputCollisions();
     bool touchingWall();

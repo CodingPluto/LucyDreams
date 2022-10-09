@@ -15,7 +15,8 @@ struct AnimationConfiguration
 class AnimationComponent : public ImageComponent
 {
 private:
-    static std::map<std::string,AnimationConfiguration> animationConfigurations;
+    void debugCurrentAnimation();
+    std::map<std::string,AnimationConfiguration *> animationConfigurations;
     std::string currentConfigurationName;
     int currentFrame;
     float deltaAccumulator;
