@@ -27,6 +27,9 @@ private:
     std::chrono::_V2::system_clock::time_point currentFrameDT;
 
     std::vector<class GameObject*> gameObjects;
+    std::vector<class GameObject*> pendingGameObjects;
+    std::vector<class GameObject*> pendingRemovalGameObjects;
+    std::vector<class GameObject*> gameObjectsToBeDeleted;
     void gameLoop();
     void getInput();
     void updateGame();
@@ -39,7 +42,7 @@ private:
     std::vector<HandlerError*> errorsOnTick;
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
-    const bool debugMode = false;
+    const bool debugMode = true;
     class WindowHandler *windowHandler = nullptr;
     class EventsHandler *eventsHandler = nullptr; 
     class ImageHandler *imageHandler = nullptr;
@@ -50,6 +53,7 @@ public:
     void initalize();
     void addHandler(Handler *handler, hp__HandlerTickPoint tickPoint);
     void exitGame();
+    void deleteAtFrameEnd(GameObject *address);
     /*
     bool keyState(SDL_Scancode key);
     */

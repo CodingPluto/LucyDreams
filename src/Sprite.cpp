@@ -7,6 +7,7 @@ Sprite::Sprite()
 {
     scale = 1;
     isPositionRelative = true;
+    setDebugName("Sprite");
 }
 bool Sprite::getIsPositionRelative()
 {

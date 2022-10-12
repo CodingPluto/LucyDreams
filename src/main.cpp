@@ -1,5 +1,7 @@
+#include <ctime>
 #include "Game.h"
 #include "Sprite.h"
+#include "utils/utils.h"
 #include "handlers/WindowHandler.h"
 #include "handlers/DisplayHandler.h"
 #include "handlers/EventsHandler.h"
@@ -10,8 +12,11 @@
 #include "handlers/Camera.h"
 #include "colliders/AABBCollider.h"
 #include "Lucy.h"
-#include "Trigger.h"
+#include "CloudPlatform.h"
+#include "PlatformPlacer.h"
+//#include "Trigger.h"
 using namespace std;
+
 
 class LucyDreams : public Game
 {
@@ -27,6 +32,12 @@ class LucyDreams : public Game
     }
     void loadGameData()
     {
+        setSeed(time(0));
+        loadedSprites.emplace_back(new PlatformPlacer(colliders));
+        for (int i = 0; i < 1; i++)
+        {
+            loadedSprites.emplace_back(new CloudPlatform(colliders));
+        }
         loadedSprites.emplace_back(new Lucy(colliders));
     }
 public:

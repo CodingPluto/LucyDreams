@@ -21,6 +21,15 @@ GameObject::GameObject(){
     game->addGameObject(this);
 }
 
+void GameObject::setDebugName(const std::string &debugName)
+{
+    this->debugName = debugName;
+}
+const std::string &GameObject::getDebugName()
+{
+    return debugName;
+}
+
 GameObject::~GameObject()
 {
     gs = gs_Removed;

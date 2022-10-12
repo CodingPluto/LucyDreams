@@ -4,6 +4,7 @@ using namespace std;
 
 Component::Component(Sprite *sprite)
 {
+    setDebugName("Component");
     owner = sprite;
     if (owner)
     {

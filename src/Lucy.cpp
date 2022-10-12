@@ -9,10 +9,12 @@ const string Lucy::lucyImagesPath = "lucyAnimations/";
 
 
 
-Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(platforms,12,24), lucyAnimation(this), playerCamera(this,&lucyAnimation)
+Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(platforms,12,23), lucyAnimation(this), playerCamera(this,&lucyAnimation)
 {
-    isPositionRelative = true;
-    scale = 2;
+    setDebugName("Lucy");
+    setUpdateOrder(10);
+    lucyAnimation.setUpdateOrder(9);
+    scale = 4;
     position = Position2(100,100);
     auto getAnimation = [](string pathName, int size)
     {
@@ -23,13 +25,13 @@ Lucy::Lucy(std::vector<AABBCollider*> &platforms): PlatformerCollision(platforms
         }
         return paths;
     };
-    lucyAnimation.addAnimation(getAnimation("lucy_running",8), "run", 0.2, false);
-    lucyAnimation.addAnimation(getAnimation("lucy_idle",9), "idle", 0.4, false);
-    lucyAnimation.addAnimation(getAnimation("lucy_fall",4), "fall", 0.1, false);
+    lucyAnimation.addAnimation(getAnimation("lucy_running",8), "run", 0.2, true);
+    lucyAnimation.addAnimation(getAnimation("lucy_idle",9), "idle", 0.4, true);
+    lucyAnimation.addAnimation(getAnimation("lucy_fall",4), "fall", 0.1, true);
     lucyAnimation.addAnimation(getAnimation("lucy_jump",8), "jump", 0.03, false);
     lucyAnimation.addAnimation(getAnimation("lucy_die",8), "die", 0.1, false);
     lucyAnimation.changeConfiguration("idle");
-    game->cameraHandler->setActiveCamera(&playerCamera);
+    //game->cameraHandler->setActiveCamera(&playerCamera);
 }
 bool Lucy::onGround()
 {
@@ -43,10 +45,6 @@ void Lucy::resetFrameVariables()
 ls__LucyState Lucy::determineState()
 {
     //cout << "Position: " << position << endl;
-    if (touching[COLL_LEFT_WALL])
-    {
-        return ls_Die;
-    }
     if (velocity.y < 0)
     {
         return ls_Jumping;
@@ -126,7 +124,6 @@ void Lucy::handleInput()
 
 void Lucy::update()
 {
-    cout << getAbsolutePosition() << endl;
     resetFrameVariables();
     handleInput();
 

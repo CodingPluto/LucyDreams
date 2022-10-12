@@ -156,9 +156,4 @@ void ImageHandler::reloadImageDrawerProrities()
             updateOrder = imageDrawers[i]->getDrawOrder();
         }
     }
-    for (vector<ImageComponent*>::size_type i = 0; i < imageDrawers.size(); ++i)
-    {
-        cout << imageDrawers[i]->getDrawOrder() << ",  ";
-    }
-    cout << endl;
 }

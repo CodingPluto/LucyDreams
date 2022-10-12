@@ -1,6 +1,5 @@
 #ifndef SRC_IMAGE_COMPONENT_H
 #define SRC_IMAGE_COMPONENT_H
-#define VISUAL_DEGUG_MODE 1
 #include <vector>
 #include <SDL2/SDL.h>
 #include <functional>
@@ -28,6 +27,8 @@ protected:
 public:
     std::string getImageName();
     int getDrawOrder();
+    float getWidth();
+    float getHeight();
     void setDrawOrder(int priority);
     void setCameraInstance(class Camera *camera);
     void show();

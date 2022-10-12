@@ -29,6 +29,10 @@ add_executable(LucyDreams
     src/Trigger.h
     src/Lucy.h
     src/Lucy.cpp
+    src/CloudPlatform.h
+    src/CloudPlatform.cpp
+    src/PlatformPlacer.h
+    src/PlatformPlacer.cpp
 )
 target_include_directories(LucyDreams PUBLIC
 "${PROJECT_BINARY_DIR}"

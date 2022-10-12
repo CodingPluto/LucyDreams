@@ -37,6 +37,7 @@ void ImageComponent::setImage(string imageName)
     {
         cameraInstance->onImageSet();
     }
+    cout << "Set cloud image" << endl;
 }
 
 void ImageComponent::setCameraInstance(class Camera *camera)
@@ -68,6 +69,7 @@ void ImageComponent::displayDebug()
 
 ImageComponent::ImageComponent(Sprite *sprite):Component(sprite)
 {
+    setDebugName("ImageComponent");
     drawPriority = 100;
     imageComponentInitalized = false;
     imageName = "";
@@ -103,7 +105,7 @@ void ImageComponent::draw()
     {
         updateImageRect();
         game->imageHandler->drawImage(&imgRect,imageName,owner->getIsPositionRelative(),isImageFlipped);
-        if (VISUAL_DEGUG_MODE)
+        if (game->debugMode)
         {
             displayDebug();
         }
@@ -133,4 +135,14 @@ void ImageComponent::setDrawOrder(int priority)
 std::string ImageComponent::getImageName()
 {
     return imageName;
+}
+
+float ImageComponent::getWidth()
+{
+    return textureWidth * getScale();
+}
+
+float ImageComponent::getHeight()
+{
+    return textureHeight * getScale();
 }

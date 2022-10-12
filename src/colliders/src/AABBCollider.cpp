@@ -38,6 +38,7 @@ AABBCollider::AABBCollider(float x, float y, float rawWidth, float rawHeight, Sp
     this->rawWidth = rawWidth;
     this->rawHeight = rawHeight;
     cout << "AABB Collider created!" << endl;
+    setDebugName("AABBCollider");
 }
 
 AABBCollider::AABBCollider(SDL_Rect rect,Sprite *owner): Collider(owner)
@@ -46,6 +47,7 @@ AABBCollider::AABBCollider(SDL_Rect rect,Sprite *owner): Collider(owner)
     position.y = rect.y;
     this->width = rect.w;
     this->height = rect.h;
+    setDebugName("AABBCollider");
 }
 
 void AABBCollider::AABBCollision()
@@ -83,5 +85,36 @@ void AABBCollider::updateDimensions()
     {
         width = rawWidth * getScale();
         height = rawHeight * getScale();
+    }
+    else
+    {
+        width = rawWidth;
+        height = rawHeight;
+    }
+}
+
+void AABBCollider::setRawWidth(float newWidth)
+{
+    rawWidth = newWidth;
+}
+void AABBCollider::setRawHeight(float newHeight)
+{
+    rawHeight = newHeight;
+}
+void AABBCollider::setAABBColliders(std::vector<class AABBCollider*> &newColliders)
+{
+    AABBColliders = &newColliders;
+    AABBColliders->emplace_back(this);
+}
+
+AABBCollider::~AABBCollider()
+{
+    for (auto it = AABBColliders->begin(); it != AABBColliders->end(); ++it)
+    {
+        if (*it == this)
+        {
+            AABBColliders->erase(it);
+            break;
+        }
     }
 }

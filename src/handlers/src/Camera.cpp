@@ -42,8 +42,6 @@ Camera::Camera()
 
 Position2 Camera::cameraUpdate()
 {
-    cout << textureWidth << endl;
-    cout << textureHeight << endl;
     if (owner != nullptr)
     {
         camOffset.x = owner->getX() - owner->game->windowHandler->getScreenWidth()/2 + (textureWidth * image->getScale())/2;

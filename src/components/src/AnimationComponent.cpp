@@ -5,10 +5,11 @@
 using namespace std;
 //map<string,AnimationConfiguration> AnimationComponent::animationConfigurations;
 
-AnimationComponent::AnimationComponent(Sprite *sprite):ImageComponent(sprite)
+AnimationComponent::AnimationComponent(Sprite *sprite) : ImageComponent(sprite)
 {
     deltaAccumulator = 0;
     currentFrame = 0;
+    setDebugName("AnimationComponent");
 }
 
 AnimationComponent::~AnimationComponent()
@@ -29,10 +30,8 @@ void AnimationComponent::addAnimation(vector<string> imagePaths, string configur
 void AnimationComponent::changeConfiguration(string configurationName)
 {
     currentConfigurationName = configurationName;
-    cout << "got past here" << endl;
     currentFrame = 0;
     deltaAccumulator = 0;
-    cout << currentConfigurationName << endl;
     try
     {
         animationConfigurations.at(currentConfigurationName);
@@ -61,15 +60,13 @@ void AnimationComponent::changeConfiguration(string configurationName)
         imageComponentInitalized = true;
         game->imageHandler->reloadImageDrawerProrities();
     }
-    setImage(animationConfigurations[currentConfigurationName]->paths[0]);
+    //setImage(animationConfigurations[currentConfigurationName]->paths[0]);
     
 }
 
 void AnimationComponent::update()
 {
-    cout << "updating Animation component" << endl;
     deltaAccumulator += game->deltaTime;
-    cout << "Current Config Delta Thres: " <<  animationConfigurations[currentConfigurationName]->deltaThreshold << endl;
     while (deltaAccumulator >= animationConfigurations[currentConfigurationName]->deltaThreshold)
     {
         //cout << "still updating!" << endl;
@@ -96,7 +93,6 @@ void AnimationComponent::update()
     imageName = animationConfigurations[currentConfigurationName]->paths[currentFrame];
     textureWidth = animationConfigurations[currentConfigurationName]->dimensions[currentFrame].first;
     textureHeight = animationConfigurations[currentConfigurationName]->dimensions[currentFrame].second;
-    cout << "finished updating Animation component" << endl;
 }
 
 void AnimationComponent::setDeltaThreshold(string animationConfigurationName, float newThreshold)

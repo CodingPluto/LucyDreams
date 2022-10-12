@@ -21,11 +21,11 @@ public:
         y -= pos.y;
         return *this;
     }
-    Position2 operator+(Position2 pos)
+    Position2 operator+(const Position2& pos)
     {
         return Position2(x + pos.x, y + pos.y);
     }
-    Position2 operator-(Position2 pos)
+    Position2 operator-(const Position2& pos)
     {
         return Position2(x - pos.x, y - pos.y);
     }
@@ -37,9 +37,13 @@ public:
     {
         return Position2(x / scalar, y / scalar);
     }
-    Position2 operator/(Position2 pos)
+    Position2 operator/(const Position2& pos)
     {   
         return Position2(x / pos.x, y / pos.y);
+    }
+    friend bool operator==(const Position2& lhs, const Position2& rhs)
+    {
+        return (lhs.x == rhs.x && lhs.y == rhs.y);
     }
     friend std::ostream& operator<<(std::ostream& os, Position2 pos)
     {

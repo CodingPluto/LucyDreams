@@ -47,7 +47,7 @@ void PlatformerCollision::moveAndCollide()
     }
 }
 
-PlatformerCollision::PlatformerCollision(vector<AABBCollider*> &colliderGroup, float hitboxWidth, float hitboxHeight): collisionChecker(position.x,position.y,hitboxWidth,hitboxHeight)
+PlatformerCollision::PlatformerCollision(vector<AABBCollider*> &colliderGroup, float hitboxWidth, float hitboxHeight): collisionChecker(position.x,position.y,hitboxWidth,hitboxHeight,this)
 {
     touching[COLL_LEFT_WALL] = false;
     touching[COLL_RIGHT_WALL] = false;
@@ -55,7 +55,9 @@ PlatformerCollision::PlatformerCollision(vector<AABBCollider*> &colliderGroup, f
     touching[COLL_CEILING] = false;
 
     collisionChecker.setAABBColliders(colliderGroup);
+    setUpdateOrder(50);
     colliderGroup.emplace_back(&collisionChecker);
+    setDebugName("PlatformerCollision");
     /* If Seg Fault:
     You may have provided a malformed vector to the Platformer collision construction..
     Please check that the vector provided is not being constructed as this class is being created...

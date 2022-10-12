@@ -39,10 +39,15 @@ void Collider::checkCollision(CollisionType collisionType)
 
 void Collider::update()
 {
-    if (DEBUG_COLLISION)
+    if (owner)
+    {
+        position = owner->getPosition();
+    }
+    if (game->debugMode)
     {
         debugCollision();
     }
+    updateDimensions();
 }
 
 
@@ -54,15 +59,18 @@ Collider::Collider(Sprite *owner):Component(owner),AABBColliders(nullptr),circul
 Collider::Collider():AABBColliders(nullptr),circularColliders(nullptr)
 {
     collided = false;
+    setDebugName("Collider");
+}
+Collider::~Collider()
+{
+
 }
 
-void Collider::setAABBColliders(std::vector<class AABBCollider*> &newColliders)
-{
-    AABBColliders = &newColliders;
-}
+
 void Collider::setCircularColliders(std::vector<class CircularCollider*> &newColliders)
 {
     circularColliders = &newColliders;
+    //circularColliders->emplace_back(this);
 }
 void Collider::setColliderID(unsigned short newID)
 {

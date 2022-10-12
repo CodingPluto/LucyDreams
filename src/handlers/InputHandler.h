@@ -1,6 +1,7 @@
 #ifndef SRC_HANDLERS_INPUT_HANDLER_H
 #define SRC_HANDLERS_INPUT_HANDLER_H
 #include "Handler.h"
+#include <SDL2/SDL.h>
 class InputHandler : Handler
 {
 private:

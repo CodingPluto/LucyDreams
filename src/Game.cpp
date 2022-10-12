@@ -74,18 +74,57 @@ void Game::getInput()
 void Game::updateGame()
 {
     updateHandlers(hp_OnUpdate);
-    
+    cout << "trying to remove " << pendingRemovalGameObjects.size() << " GameObjects." << endl;
+    cout << "There are currently " << gameObjects.size() << " GameObjects." << endl;
+    if (pendingRemovalGameObjects.size() > 0)
+    {
+        for (int i = 0; i < gameObjects.size(); i++)
+        {
+            cout << "Looping through gameObjects" << endl;
+            for (GameObject *pendingRemovalGameObject : pendingRemovalGameObjects)
+            {
+                if (gameObjects[i] == pendingRemovalGameObject)
+                {
+                    cout << "Found one!" << endl;
+                    gameObjects.erase(gameObjects.begin() + i);
+                    i--;
+                }
+            }
+            cout << i << endl;
+        }
+    }
+    pendingRemovalGameObjects.clear();
+    cout << "Pending GameObjects: " << pendingGameObjects.size() << endl;
+    for (GameObject *gameObject : pendingGameObjects)
+    {
+        gameObjects.emplace_back(gameObject);
+    }
+    pendingGameObjects.clear();
+    cout << "There are now " << gameObjects.size() << " GameObjects." << endl;
+    cout << "--- UPDATING gameObjects ---" << endl;
     for (GameObject *gameObject : gameObjects)
     {
         if (gameObject->getGameObjectStatus())
         {
+            cout << gameObject->getDebugName() << " : " << gameObject << endl;
             gameObject->update();
         }
     }
+    cout << "--- UPDATED gameObjects ---" << endl;
+
+    cout << "--- DELETING gameObjectsToBeDeleted ---" << endl;
+    for (GameObject *gameObject : gameObjectsToBeDeleted)
+    {
+        cout << gameObject->getDebugName() << " : " << gameObject << endl;
+        delete gameObject;
+    }
+    cout << "--- DELETED gameObjectsToBeDeleted ---" << endl;
+    gameObjectsToBeDeleted.clear();
 }
 
 void Game::renderOutput()
 {
+    cout << "Updating handlers!" << endl;
     updateHandlers(hp_OnRender);
 }
 
@@ -160,7 +199,7 @@ void Game::initalize()
 
 void Game::addGameObject(GameObject *address)
 {
-    gameObjects.emplace_back(address);
+    pendingGameObjects.emplace_back(address);
 }
 
 void Game::reloadGameObjProrities()
@@ -196,15 +235,13 @@ void Game::reloadGameObjProrities()
             updateOrder = gameObjects[i]->getUpdateOrder();
         }
     }
-    for (vector<GameObject*>::size_type i = 0; i < gameObjects.size(); ++i)
-    {
-        cout << gameObjects[i]->getUpdateOrder() << ",  ";
-    }
-    cout << endl;
 }
 
 void Game::removeGameObject(GameObject *address)
 {
+    pendingRemovalGameObjects.emplace_back(address);
+    cout << "added to pending removal" << endl;
+    /*
     for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
     {
         if (*it == address)
@@ -213,18 +250,17 @@ void Game::removeGameObject(GameObject *address)
             break;
         }
     }
+    */
 }
+
+void Game::deleteAtFrameEnd(GameObject *address)
+{
+    gameObjectsToBeDeleted.emplace_back(address);
+}
+
 
 void Game::exitGame()
 {
     gameRunning = false;
 }
 
-/*
-keys = SDL_GetKeyboardState(NULL);
-*/
-/*
-bool Game::keyState(SDL_Scancode key)
-{
-    return keys[key];
-}*/

@@ -8,10 +8,14 @@ private:
     float rawWidth;
     float rawHeight;
 public:
+    ~AABBCollider();
     float width;
     float height;
     AABBCollider(float x, float y, float width, float height, class Sprite *owner = nullptr);
     AABBCollider(SDL_Rect rect, class Sprite *owner = nullptr);
+    void setRawWidth(float newWidth);
+    void setRawHeight(float newHeight);
+    void setAABBColliders(std::vector<class AABBCollider*> &newColliders);
     void debugCollision() final;
     void AABBCollision() final;
     void circularCollision() final;

@@ -6,6 +6,7 @@ using namespace std;
 
 HandlerError *InputHandler::tick()
 {
+    cout << "Starting updating input handler!" << endl;
     for (int keyID = 0; keyID < SDL_NUM_SCANCODES; ++keyID)
     {
         keysJustPressed[keyID] = (keysPressed[keyID] && !keysPressedLastFrame[keyID]);
