@@ -22,7 +22,7 @@ Game::Game(): gameRunning(false)
 }
 Game::~Game()
 {
-    cout << "Base Game Instance Destructing!" << endl;
+    cout << "Game Destructing!" << endl;
 }
 // Private Functions
 void Game::updateHandlers(hp__HandlerTickPoint tickPoint)
@@ -98,6 +98,12 @@ void Game::gameLoop()
             ++framesSinceInitalization;
         }
     }
+    tickPoint = hp_NoTick;
+}
+
+hp__HandlerTickPoint Game::getTickPoint()
+{
+    return tickPoint;
 }
 
 long long Game::getFramesSinceInitalization()
@@ -107,11 +113,13 @@ long long Game::getFramesSinceInitalization()
 
 void Game::getInput()
 {
+    tickPoint = hp_OnInput;
     updateHandlers(hp_OnInput);
 }
 
 void Game::updateGame()
 {
+    tickPoint = hp_OnUpdate;
     updateHandlers(hp_OnUpdate);
 
     debugLog("trying to remove " + to_string(pendingRemovalGameObjects.size()) + " GameObjects.");
@@ -158,7 +166,6 @@ void Game::updateGame()
     debugLog("--- DELETING gameObjectsToBeDeleted ---");
     for (GameObject *gameObject : gameObjectsToBeDeleted)
     {
-        cout << gameObject->getDebugName() << " : " << gameObject << endl;
         delete gameObject;
     }
     debugLog("--- DELETED gameObjectsToBeDeleted ---");
@@ -167,6 +174,7 @@ void Game::updateGame()
 
 void Game::renderOutput()
 {
+    tickPoint = hp_OnRender;
     updateHandlers(hp_OnRender);
 }
 

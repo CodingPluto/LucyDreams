@@ -37,7 +37,6 @@ AABBCollider::AABBCollider(float x, float y, float rawWidth, float rawHeight, Sp
     position.y = y;
     this->rawWidth = rawWidth;
     this->rawHeight = rawHeight;
-    cout << "AABB Collider created!" << endl;
     setDebugName("AABBCollider");
 }
 

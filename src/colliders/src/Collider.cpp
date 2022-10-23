@@ -53,7 +53,6 @@ void Collider::update()
 
 Collider::Collider(Sprite *owner):Component(owner),AABBColliders(nullptr),circularColliders(nullptr)
 {
-    cout << "Collider created!" << endl;
     collided = false;
 }
 Collider::Collider():AABBColliders(nullptr),circularColliders(nullptr)

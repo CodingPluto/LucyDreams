@@ -20,8 +20,6 @@ bool ImageHandler::initalize()
     {
         return false;
     }
-    cout << renderer << endl;
-    cout << windowHandler << endl;
     IMG_Init(IMG_INIT_PNG);
     return true;
 }

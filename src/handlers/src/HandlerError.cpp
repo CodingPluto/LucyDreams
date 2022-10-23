@@ -36,6 +36,9 @@ std::string HandlerError::returnError()
     address << (void const *)originator;
     fullErrorMessage += address.str();
     fullErrorMessage += "(";
+    fullErrorMessage += originator->getDebugName();
+    fullErrorMessage += ")";
+    fullErrorMessage += "(";
     fullErrorMessage += typeid(originator).name();
     fullErrorMessage += ")";
     fullErrorMessage += " |";

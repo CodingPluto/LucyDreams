@@ -18,7 +18,6 @@ GameObject::GameObject(){
     {
         throw "You haven't setup the game instance for the Game Objects.";
     }
-    cout << "Game Object Created ("  << this << ")" << endl;
     game->addGameObject(this);
 }
 
@@ -35,7 +34,6 @@ GameObject::~GameObject()
 {
     gs = gs_Removed;
     game->removeGameObject(this);
-    cout << debugName << " removed ("  << this << ")" << endl;
 }
 
 int GameObject::getUpdateOrder()

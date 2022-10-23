@@ -31,8 +31,6 @@ bool DisplayHandler::initalize()
         return false;
     }
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-    cout << renderer << endl;
-    cout << window << endl;
     return true;
 }
 

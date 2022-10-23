@@ -10,11 +10,8 @@ using namespace std;
 vector<AABBCollider*> colliders;
 void myFirstScene(vector<GameObject*> *dynamicGameObjects)
 {
-    cout << "RUNNING MY FIRST SCENE" << endl;
     dynamicGameObjects->emplace_back(new PlatformPlacer(colliders));
     dynamicGameObjects->emplace_back(new Lucy(colliders));
-
-    cout << "Created new PlatformPlacer!" << endl;
 }
 
 void mySecondScene(vector<GameObject*> *dynamicGameObjects)
@@ -24,9 +21,8 @@ void mySecondScene(vector<GameObject*> *dynamicGameObjects)
 
 SceneHandler::SceneHandler():Handler(hp_OnInput)
 {
-    modifyGameObjects = false;
+    isModifyingScene = false;
     debugName = "Scene Handler";
-    cout << "Scene Handler Created!" << endl;
     addScene(myFirstScene,"First");
     addScene(mySecondScene,"Second");
 }
@@ -52,11 +48,18 @@ bool SceneHandler::initalize()
 
 HandlerError* SceneHandler::tick()
 {
-    if (modifyGameObjects)
+    if (isModifyingScene)
     {
-        cout << "Modifiying game objeccts!" << endl;
-        modifyLoadedGameObjects();
-        modifyGameObjects = false;
+        try
+        {
+            scenesFunctions.at(sceneName);
+        }
+        catch(const exception &e)
+        {
+            return new HandlerError(et_GameError,"The scene \'" + sceneName + "\' doesn\'t exist!",this);
+        }
+        modifyScene();
+        isModifyingScene = false;
     }
     return nullptr;
 }
@@ -64,13 +67,13 @@ HandlerError* SceneHandler::tick()
 void SceneHandler::setScene(const string &sceneName)
 {
     this->sceneName = sceneName;
-    modifyGameObjects = true;
-    cout << "Ticked boolean" << endl;
+    isModifyingScene = true;
 }
 
-void SceneHandler::modifyLoadedGameObjects()
+void SceneHandler::modifyScene()
 {
     game->cameraHandler->setActiveCamera(nullptr);
+
     loadedGameObjects.clear();
     for (auto dynamicGameObject : dynamicGameObjects)
     {

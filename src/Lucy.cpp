@@ -169,7 +169,6 @@ void Lucy::handleInput()
         if (onGround() || coyoteTime)
         {
             jumping = true;
-            cout << "JUMPING!!" << endl;
             velocity.y -= jumpHeight;
             coyoteTime = false;
             framesSinceJump = 0;
@@ -195,28 +194,12 @@ void Lucy::correctPosition()
     }
 }
 
-
-
-void Lucy::update()
+void Lucy::checkCollision()
 {
-    resetFrameVariables();
-    
-    handleInput();
-    velocity.y += fallSpeed;
-    if (touching[COLL_FLOOR] && velocity.y > 0) velocity.y = 0;
-    clampMax(velocity.y, (float) terminalVelocity);
-    cout << "LUCY UPDATED" << endl;
-    enforceState(determineState());
-    //outputCollisions();
-
-    position += velocity * game->deltaTime;
-    velocity.x = velocity.x * 0.7;
 
     float width = 12 * scale;
     float yOffset = 21 * scale;
     float height = 2 * scale;
-    //cout << (fallSpeed * 25 < velocity.y) << endl;
-    cout << velocity << endl;
     if (!currentPlatform)
     {
         hadCurrentPlatformLastFrame = false;
@@ -252,7 +235,6 @@ void Lucy::update()
             if (succeededBattles == heightOfNewPlatforms.size())
             {
                 currentPlatform = dynamic_cast<CloudPlatform*>(currentPlatformCollider->getOwner());
-                cout << "Found new platform" << endl;
                 break;
             }
         }
@@ -278,7 +260,6 @@ void Lucy::update()
             currentPlatform = nullptr;
             currentPlatformCollider = nullptr;
         }
-        cout << "touching platform" << endl;
     }
     /*
     SDL_Rect rect;
@@ -288,7 +269,24 @@ void Lucy::update()
     rect.h = height;
     game->imageHandler->drawRect(&rect,{0,0,0,255},true,false);
     */
+}
 
+
+
+void Lucy::update()
+{
+    resetFrameVariables();
+    
+    handleInput();
+    velocity.y += fallSpeed;
+    if (touching[COLL_FLOOR] && velocity.y > 0) velocity.y = 0;
+    clampMax(velocity.y, (float) terminalVelocity);
+    enforceState(determineState());
+    //outputCollisions();
+
+    position += velocity * game->deltaTime;
+    velocity.x = velocity.x * 0.7;
+    checkCollision();
     correctPosition();
 
     previousTouching[COLL_LEFT_WALL] = touching[COLL_LEFT_WALL];

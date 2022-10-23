@@ -9,13 +9,13 @@ class SceneHandler : public Handler
 {
 private:
     bool initalize();
-    bool modifyGameObjects;
+    bool isModifyingScene;
     std::vector<class GameObject*> dynamicGameObjects;
     std::vector<class GameObject*> loadedGameObjects;
     std::vector<class GameObject*> persistentGameObjects;
     std::map<std::string,SceneFunction> scenesFunctions;
     void addScene(SceneFunction sceneFunction,std::string sceneName);
-    void modifyLoadedGameObjects();
+    void modifyScene();
     HandlerError* tick();
     std::string sceneName;
 public:

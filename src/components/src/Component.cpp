@@ -14,7 +14,6 @@ Component::Component(Sprite *sprite)
     {
         setUpdateOrder(100);
     }
-    cout << "Created component!" << endl;
 }
 Component::Component()
 {}

@@ -52,6 +52,7 @@ private:
     void enforceState(ls__LucyState currentState);
     void handleInput();
     void correctPosition();
+    void checkCollision();
 public:
     void onStart() override;
     Lucy(std::vector<AABBCollider*> &platforms);

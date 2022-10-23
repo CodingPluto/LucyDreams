@@ -19,6 +19,7 @@ protected:
     virtual void loadGameData() = 0;
     std::vector<class Handler*> organisedHandlers[4];
 private:
+    hp__HandlerTickPoint tickPoint = hp_NoTick;
     const unsigned int intended_framerate = 60;
     long long framesSinceInitalization = 0;
     std::chrono::_V2::system_clock::time_point previousIterDT;
@@ -42,6 +43,7 @@ private:
     std::vector<HandlerError*> errorsOnTick;
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
+    hp__HandlerTickPoint getTickPoint();
     void setGameObjects(std::vector<GameObject*> *gameObjectsPtr);
     void debugLog(std::string text);
     const bool debugMode = false;

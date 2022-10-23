@@ -8,7 +8,6 @@ using namespace std;
 
 Camera::Camera(Sprite *owner, ImageComponent *image): owner(owner)
 {
-    cout << "Camera Created." << endl;
     this->image = image;
     textureWidth = 0;
     textureHeight = 0;

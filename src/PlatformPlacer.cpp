@@ -53,7 +53,6 @@ PlatformPlacer::~PlatformPlacer()
 {
     try
     {
-        cout << "Trying to output platforms to file" << endl;
         outputPlatformsToFile();
     }
     catch(...)

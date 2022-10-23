@@ -29,18 +29,14 @@ CloudPlatform::CloudPlatform(vector<AABBCollider*> &colliders, Position2 setPosi
     collider.setUpdateOrder(50);
     this->movementRange = movementRange;
     setUpdateOrder(100);
-    cout << "Settting position now" << endl;
     setCloudLength(this->cloudLength);
     position = setPosition;
-    cout << "Successfully created Cloud Platform!" << endl;
     sinPoint = generateRandomNumber(1,1);
 }
 
 
 CloudPlatform::~CloudPlatform()
-{
-    cout << "Trying to delete!" << endl;
-}
+{}
 
 
 void CloudPlatform::update()

@@ -1,1 +1,1 @@
-myPlatforms.emplace_back(new CloudPlatform(colliders,{79.000000, 505.878021},-1,-1));
+myPlatforms.emplace_back(new CloudPlatform(colliders,{74.000000, 488.093933},-1,-1));

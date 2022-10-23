@@ -23,8 +23,6 @@ AnimationComponent::~AnimationComponent()
 void AnimationComponent::addAnimation(vector<string> imagePaths, string configurationName, float deltaThreshold, bool looping)
 {
     animationConfigurations[configurationName] = new AnimationConfiguration{.paths = imagePaths, .dimensions = {}, .deltaThreshold = deltaThreshold, .looping = looping};
-    cout << "added animation!" << endl;
-    cout << animationConfigurations[configurationName]->deltaThreshold << endl;
 }
 
 void AnimationComponent::changeConfiguration(string configurationName)
@@ -60,7 +58,6 @@ void AnimationComponent::changeConfiguration(string configurationName)
         imageComponentInitalized = true;
         game->imageHandler->reloadImageDrawerProrities();
     }
-    //setImage(animationConfigurations[currentConfigurationName]->paths[0]);
     
 }
 
@@ -69,9 +66,6 @@ void AnimationComponent::update()
     deltaAccumulator += game->deltaTime;
     while (deltaAccumulator >= animationConfigurations[currentConfigurationName]->deltaThreshold)
     {
-        //cout << "still updating!" << endl;
-        //cout << currentFrame << endl;
-        //cout << deltaAccumulator << endl;
         currentFrame++;
         if (currentFrame >= (int) animationConfigurations[currentConfigurationName]->paths.size())
         {

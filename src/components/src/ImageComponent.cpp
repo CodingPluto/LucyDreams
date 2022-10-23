@@ -15,8 +15,6 @@ SDL_Texture* ImageComponent::getLoadedImage(string path)
     }
     catch (const exception &e)
     {
-        cout << "The image \'" << path << "\' was not loaded." << endl;
-        cout << "Loading \'" << path << "\'" << endl;
         game->imageHandler->loadImage(path);
         imageTexture = game->imageHandler->getImageTexture(path);
     }
@@ -37,7 +35,6 @@ void ImageComponent::setImage(string imageName)
     {
         cameraInstance->onImageSet();
     }
-    cout << "Set cloud image" << endl;
 }
 
 void ImageComponent::setCameraInstance(class Camera *camera)
