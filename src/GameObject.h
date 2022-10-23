@@ -31,6 +31,7 @@ public:
     int getUpdateOrder();
     static void setupGameObjs(class Game *gameInst);
     virtual void update() = 0;
+    virtual void onStart();
 };
 
 #endif

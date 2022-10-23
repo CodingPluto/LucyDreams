@@ -28,3 +28,8 @@ void Component::setRelativeScale(float scale)
 {
     relativeScale = scale;
 }
+
+Sprite* Component::getOwner()
+{
+    return owner;
+}

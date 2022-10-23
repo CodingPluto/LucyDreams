@@ -26,9 +26,9 @@ protected:
     unsigned short colliderID;
     bool collided;
 public:
+    Position2 position;
     virtual ~Collider();
     bool isColliding();
-    Position2 position;
     void checkCollision(CollisionType collisionType);
     std::vector<class AABBCollider*> *AABBColliders;
     std::vector<class CircularCollider*> *circularColliders;

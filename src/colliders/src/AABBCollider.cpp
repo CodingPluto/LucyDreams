@@ -8,8 +8,8 @@ using namespace std;
 void AABBCollider::debugCollision()
 {
     SDL_Rect rect;
-    rect.x = position.x;
-    rect.y = position.y;
+    rect.x = position.x + offset.x;
+    rect.y = position.y + offset.y;
     rect.w = width;
     rect.h = height;
     bool relativePosition;
@@ -67,10 +67,10 @@ void AABBCollider::AABBCollision()
 
 bool AABBCollider::isOverlapping(const AABBCollider *collider)
 {
-    return (position.x < collider->position.x + collider->width &&
-            position.x + width > collider->position.x &&
-            position.y < collider->position.y + collider->height &&
-            position.y + height > collider->position.y);
+    return (position.x + offset.x < collider->position.x + collider->offset.x + collider->width &&
+            position.x + offset.x + width > collider->position.x + collider->offset.x &&
+            position.y + offset.y < collider->position.y + collider->offset.y + collider->height &&
+            position.y + offset.y + height > collider->position.y + collider->offset.y);
 }
 
 
@@ -85,11 +85,13 @@ void AABBCollider::updateDimensions()
     {
         width = rawWidth * getScale();
         height = rawHeight * getScale();
+        offset = rawOffset * getScale();
     }
     else
     {
         width = rawWidth;
         height = rawHeight;
+        offset = rawOffset;
     }
 }
 
@@ -105,6 +107,15 @@ void AABBCollider::setAABBColliders(std::vector<class AABBCollider*> &newCollide
 {
     AABBColliders = &newColliders;
     AABBColliders->emplace_back(this);
+}
+void AABBCollider::setRawOffset(Position2 offset)
+{
+    rawOffset = offset;
+}
+
+Position2 AABBCollider::getAdjustedPosition()
+{
+    return {position.x + offset.x, position.y + offset.y};
 }
 
 AABBCollider::~AABBCollider()

@@ -6,6 +6,7 @@
 class CameraHandler : public Handler
 {
 private:
+    
     Camera* activeCamera;
     Camera defaultCamera;
     Position2 cameraOffset;

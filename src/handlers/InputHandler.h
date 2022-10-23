@@ -26,6 +26,7 @@ public:
     const bool isRMBOneClick();
     const unsigned int getMouseX();
     const unsigned int getMouseY();
+    static const SDL_Scancode numberScancodes[10];
     InputHandler();
     ~InputHandler();
 };

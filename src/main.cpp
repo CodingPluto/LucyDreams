@@ -8,6 +8,7 @@
 #include "handlers/ImageHandler.h"
 #include "handlers/CameraHandler.h"
 #include "handlers/InputHandler.h"
+#include "handlers/SceneHandler.h"
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
 #include "colliders/AABBCollider.h"
@@ -24,21 +25,22 @@ class LucyDreams : public Game
     vector<AABBCollider*> colliders;
     void loadHandlers()
     {
-        windowHandler = new WindowHandler("Lucy Dreams!",0,0,500,500);
+        windowHandler = new WindowHandler("Lucy Dreams!",0,0,1280,720);
         eventsHandler = new EventsHandler();
         inputHandler = new InputHandler();
         cameraHandler = new CameraHandler();
         imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
+        sceneHandler = new SceneHandler();
     }
     void loadGameData()
     {
+        debugLog("--- Starting Loading Game Data ---");
         setSeed(time(0));
-        loadedSprites.emplace_back(new PlatformPlacer(colliders));
-        for (int i = 0; i < 1; i++)
-        {
-            loadedSprites.emplace_back(new CloudPlatform(colliders));
-        }
-        loadedSprites.emplace_back(new Lucy(colliders));
+        //loadedSprites.emplace_back(new PlatformPlacer(colliders));
+        debugLog("Loaded Sprites: " + to_string(loadedSprites.size()));
+        debugLog("--- Loaded Game Data! ---");
+        sceneHandler->setScene("First");
+
     }
 public:
     ~LucyDreams()

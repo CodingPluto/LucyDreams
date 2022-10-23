@@ -7,7 +7,12 @@ class PlatformPlacer : public GameObject
 private:
     std::vector<class CloudPlatform*> myPlatforms;
     std::vector<class AABBCollider*> &colliders;
+    CloudPlatform *activeCloudPlatform = nullptr;
+    std::vector<CloudPlatform *>::iterator activeCloudPlatformIter;
+    bool hasActiveCloudPlatform;
     int framesSinceLastClick = 0;
+    void outputPlatformsToFile();
+    void onStart() final;
 public:
     PlatformPlacer(std::vector<class AABBCollider*> &colliders);
     ~PlatformPlacer();

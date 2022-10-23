@@ -14,10 +14,12 @@ enum Touching
 class PlatformerCollision : public Sprite
 {
 private:
+    Position2 getAdjustedPreviousPosition();
 
 protected:
     AABBCollider collisionChecker;
     bool touching[4];
+    bool collisionEnabled[4];
 
 
 
@@ -26,6 +28,8 @@ public:
     void moveAndCollide();
     void outputCollisions();
     bool touchingWall();
+    void enableSpecificCollisions(Touching touching);
+    void disableSpecificCollisions(Touching touching);
 };
 
 

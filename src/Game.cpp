@@ -36,6 +36,13 @@ void Game::updateHandlers(hp__HandlerTickPoint tickPoint)
         }
     }
 }
+void Game::debugLog(string text)
+{
+    if (debugMode)
+    {
+        cout << text << endl;
+    }
+}
 
 
 void Game::gameLoop()
@@ -44,10 +51,42 @@ void Game::gameLoop()
     previousIterDT = chrono::system_clock::now();
     previousFrameDT = chrono::system_clock::now();
     double accumulated_seconds = 0;
+    debugLog("GameObjects: " + to_string(gameObjects->size()) + " - should be 0.");
+    gameObjects->clear();
+    debugLog("running on start code!");
+    debugLog("Pending GameObjects: " + to_string(pendingGameObjects.size()));
+    for (GameObject *gameObject : pendingGameObjects)
+    {
+        if (gameObject->getDebugName() == "Lucy")
+        {
+            cout << "Lucy Found In Pending GameObjects." << endl;
+        }
+        debugLog("Pending GameObject: " + gameObject->getDebugName() + " : " + addressToString(gameObject));
+        gameObjects->emplace_back(gameObject);
+    }
+    for (GameObject *gameObject : *gameObjects)
+    {
+        debugLog("GameObject: " + gameObject->getDebugName() + " : " + addressToString(gameObject));
+    }
+    pendingGameObjects.clear();
+    debugLog("Currently " + to_string(gameObjects->size()) + " GameObjects");
+    vector<GameObject*> onStartGameObjects; // Don't know why on earth this works.
+    // my guess is the new platforms being assigned in Platform Placer are somehow getting into GameObjects, rather that PendingGameObjects
+    // this screws up the loop and makes Gameobjects run twice.
+    // it fixed for now.
+    onStartGameObjects.assign(gameObjects->begin(),gameObjects->end());
+    for (GameObject *onStartGameObject : onStartGameObjects)
+    {
+        debugLog(" --- " + onStartGameObject->getDebugName() + "(" + addressToString(onStartGameObject) + ")" + " --- ");
+        onStartGameObject->onStart();
+    }
+    debugLog("----- FINISHED ON START LOOP! -----");
+    reloadGameObjProrities();
     while (gameRunning)
     {
         calculateDeltaTimeForFrameTiming();
         accumulated_seconds += frameTimingDeltaTime;
+        sleep(0); // This is to reduce cpu usage. May create frame stutters.
         if (isgreater(accumulated_seconds,16666666))
         {
             getInput();
@@ -74,57 +113,60 @@ void Game::getInput()
 void Game::updateGame()
 {
     updateHandlers(hp_OnUpdate);
-    cout << "trying to remove " << pendingRemovalGameObjects.size() << " GameObjects." << endl;
-    cout << "There are currently " << gameObjects.size() << " GameObjects." << endl;
+
+    debugLog("trying to remove " + to_string(pendingRemovalGameObjects.size()) + " GameObjects.");
+    debugLog("There are currently " + to_string(gameObjects->size()) + " GameObjects.");
     if (pendingRemovalGameObjects.size() > 0)
     {
-        for (int i = 0; i < gameObjects.size(); i++)
+        for (int i = 0; i < gameObjects->size(); i++)
         {
-            cout << "Looping through gameObjects" << endl;
             for (GameObject *pendingRemovalGameObject : pendingRemovalGameObjects)
             {
-                if (gameObjects[i] == pendingRemovalGameObject)
+                if ((*gameObjects)[i] == pendingRemovalGameObject)
                 {
-                    cout << "Found one!" << endl;
-                    gameObjects.erase(gameObjects.begin() + i);
+                    gameObjects->erase(gameObjects->begin() + i);
                     i--;
                 }
             }
-            cout << i << endl;
         }
     }
-    pendingRemovalGameObjects.clear();
-    cout << "Pending GameObjects: " << pendingGameObjects.size() << endl;
+    debugLog("Pending GameObjects: " + to_string(pendingGameObjects.size()));
     for (GameObject *gameObject : pendingGameObjects)
     {
-        gameObjects.emplace_back(gameObject);
+        debugLog("Pending GameObject: " + gameObject->getDebugName() + " : " + addressToString(gameObject));
+        gameObjects->emplace_back(gameObject);
+    }
+
+    if (pendingGameObjects.size() > 0 || pendingRemovalGameObjects.size() > 0)
+    {
+        reloadGameObjProrities();
     }
     pendingGameObjects.clear();
-    cout << "There are now " << gameObjects.size() << " GameObjects." << endl;
-    cout << "--- UPDATING gameObjects ---" << endl;
-    for (GameObject *gameObject : gameObjects)
+    pendingRemovalGameObjects.clear();
+    debugLog("There are now " + to_string(gameObjects->size()) + " GameObjects.");
+    debugLog("--- UPDATING gameObjects ---");
+    for (GameObject *gameObject : *gameObjects)
     {
         if (gameObject->getGameObjectStatus())
         {
-            cout << gameObject->getDebugName() << " : " << gameObject << endl;
+            debugLog(gameObject->getDebugName() + " : " + addressToString(gameObject));
             gameObject->update();
         }
     }
-    cout << "--- UPDATED gameObjects ---" << endl;
+    debugLog("--- UPDATING gameObjects ---");
 
-    cout << "--- DELETING gameObjectsToBeDeleted ---" << endl;
+    debugLog("--- DELETING gameObjectsToBeDeleted ---");
     for (GameObject *gameObject : gameObjectsToBeDeleted)
     {
         cout << gameObject->getDebugName() << " : " << gameObject << endl;
         delete gameObject;
     }
-    cout << "--- DELETED gameObjectsToBeDeleted ---" << endl;
+    debugLog("--- DELETED gameObjectsToBeDeleted ---");
     gameObjectsToBeDeleted.clear();
 }
 
 void Game::renderOutput()
 {
-    cout << "Updating handlers!" << endl;
     updateHandlers(hp_OnRender);
 }
 
@@ -197,6 +239,11 @@ void Game::initalize()
     
 }
 
+void Game::setGameObjects(vector<GameObject*> *gameObjectsPtr)
+{
+    gameObjects = gameObjectsPtr;
+}
+
 void Game::addGameObject(GameObject *address)
 {
     pendingGameObjects.emplace_back(address);
@@ -204,14 +251,15 @@ void Game::addGameObject(GameObject *address)
 
 void Game::reloadGameObjProrities()
 {
+    /*
     int previousUpdateOrder = numeric_limits<int>::max();
     int updateOrder;
-    for (vector<GameObject*>::size_type i = 0; i < gameObjects.size(); ++i)
+    for (vector<GameObject*>::size_type i = 0; i < gameObjects->size(); ++i)
     {
-        updateOrder = gameObjects[i]->getUpdateOrder();
+        updateOrder = (*gameObjects)[i]->getUpdateOrder();
         if (i > 0)
         {
-            previousUpdateOrder = gameObjects[i - 1]->getUpdateOrder();
+            previousUpdateOrder = (*gameObjects)[i - 1]->getUpdateOrder();
         }
         else
         {
@@ -219,38 +267,33 @@ void Game::reloadGameObjProrities()
         }
         while (updateOrder > previousUpdateOrder)
         {
-            GameObject *movingObject = gameObjects[i];
+            GameObject *movingObject = (*gameObjects)[i];
             i --;
-            GameObject *displacedObject = gameObjects[i];
-            gameObjects[i] = movingObject;
-            gameObjects[i + 1] = displacedObject;
+            GameObject *displacedObject = (*gameObjects)[i];
+            (*gameObjects)[i] = movingObject;
+            (*gameObjects)[i + 1] = displacedObject;
             if (i > 0)
             {
-                previousUpdateOrder = gameObjects[i - 1]->getUpdateOrder();
+                previousUpdateOrder = (*gameObjects)[i - 1]->getUpdateOrder();
             }
             else
             {
                 previousUpdateOrder = numeric_limits<int>::max();
             }
-            updateOrder = gameObjects[i]->getUpdateOrder();
+            updateOrder = (*gameObjects)[i]->getUpdateOrder();
         }
     }
+    cout << "UPDATE ORDER: " << endl;
+    for (auto gameObject : *gameObjects)
+    {
+        cout << gameObject->getUpdateOrder() << "  :  "  << gameObject->getDebugName() << endl;
+    }
+    */
 }
 
 void Game::removeGameObject(GameObject *address)
 {
     pendingRemovalGameObjects.emplace_back(address);
-    cout << "added to pending removal" << endl;
-    /*
-    for (auto it = gameObjects.begin(); it != gameObjects.end(); ++it)
-    {
-        if (*it == address)
-        {
-            gameObjects.erase(it);
-            break;
-        }
-    }
-    */
 }
 
 void Game::deleteAtFrameEnd(GameObject *address)

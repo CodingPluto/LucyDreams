@@ -4,9 +4,22 @@
 #include "../../Position.h"
 using namespace std;
 
+constexpr const SDL_Scancode InputHandler::numberScancodes[10] = 
+{
+    SDL_SCANCODE_0,
+    SDL_SCANCODE_1,
+    SDL_SCANCODE_2,
+    SDL_SCANCODE_3,
+    SDL_SCANCODE_4,
+    SDL_SCANCODE_5,
+    SDL_SCANCODE_6,
+    SDL_SCANCODE_7,
+    SDL_SCANCODE_8,
+    SDL_SCANCODE_9,
+};
+
 HandlerError *InputHandler::tick()
 {
-    cout << "Starting updating input handler!" << endl;
     for (int keyID = 0; keyID < SDL_NUM_SCANCODES; ++keyID)
     {
         keysJustPressed[keyID] = (keysPressed[keyID] && !keysPressedLastFrame[keyID]);

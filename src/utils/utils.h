@@ -31,5 +31,13 @@ void clampMax(float &variable, float clampValue);
 
 void clampMin(float &variable, float clampValue);
 
+template<typename T>
+std::string addressToString(T object)
+{
+    std::ostringstream address;
+    address << (void const *)object;
+    return address.str();
+}
+
 
 #endif

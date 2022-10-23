@@ -10,7 +10,14 @@ Camera* CameraHandler::getActiveCamera()
 
 void CameraHandler::setActiveCamera(Camera *newCamera)
 {
-    activeCamera = newCamera;
+    if (newCamera)
+    {
+        activeCamera = newCamera;
+    }
+    else
+    {
+        activeCamera = &defaultCamera;
+    }
 }
 
 CameraHandler::CameraHandler(): Handler(hp_OnRender)

@@ -26,7 +26,7 @@ private:
     std::chrono::_V2::system_clock::time_point previousFrameDT;
     std::chrono::_V2::system_clock::time_point currentFrameDT;
 
-    std::vector<class GameObject*> gameObjects;
+    std::vector<class GameObject*> *gameObjects;
     std::vector<class GameObject*> pendingGameObjects;
     std::vector<class GameObject*> pendingRemovalGameObjects;
     std::vector<class GameObject*> gameObjectsToBeDeleted;
@@ -42,12 +42,15 @@ private:
     std::vector<HandlerError*> errorsOnTick;
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
-    const bool debugMode = true;
+    void setGameObjects(std::vector<GameObject*> *gameObjectsPtr);
+    void debugLog(std::string text);
+    const bool debugMode = false;
     class WindowHandler *windowHandler = nullptr;
     class EventsHandler *eventsHandler = nullptr; 
     class ImageHandler *imageHandler = nullptr;
     class CameraHandler *cameraHandler = nullptr;
     class InputHandler *inputHandler = nullptr;
+    class SceneHandler *sceneHandler = nullptr;
     double deltaTime = 0.016;
     long long getFramesSinceInitalization();
     void initalize();

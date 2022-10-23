@@ -11,6 +11,7 @@ void GameObject::setupGameObjs(Game *gameInst)
 
 }
 
+void GameObject::onStart(){}
 GameObject::GameObject(){
     gs = gs_Enabled;
     if (game == nullptr)
@@ -34,7 +35,7 @@ GameObject::~GameObject()
 {
     gs = gs_Removed;
     game->removeGameObject(this);
-    cout << "Game Object Destroyed ("  << this << ")" << endl;
+    cout << debugName << " removed ("  << this << ")" << endl;
 }
 
 int GameObject::getUpdateOrder()

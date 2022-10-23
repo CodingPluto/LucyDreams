@@ -7,11 +7,20 @@ class CloudPlatform : public Sprite
 {
 private:
     ImageComponent image;
-    const int cloudLength;
-    const int cloudType;
+    int cloudLength;
+    int cloudType;
+    char movementDirection;
+    int movementRange;
+    float movementSpeed;
+    float sinPoint;
 public:
+    const float &getMovementSpeed();
+    const int getCloudLength();
+    const int getCloudType();
+    void setCloudLength(unsigned int cloudLength);
     AABBCollider collider;
-    CloudPlatform(std::vector<class AABBCollider*> &colliders, Position2 setPosition = {-1,-1});
+    CloudPlatform(std::vector<class AABBCollider*> &colliders, Position2 setPosition, unsigned int cloudLength, unsigned int cloudType, int movementRange = 0);
+    CloudPlatform(std::vector<class AABBCOllider*> &colliders);
     ~CloudPlatform();
     void update();
 

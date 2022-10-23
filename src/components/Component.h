@@ -10,7 +10,7 @@ protected:
 public:
     float getScale();
     void setRelativeScale(float scale);
-    
+    class Sprite* getOwner();
     Component();
     Component(class Sprite *sprite);
 };

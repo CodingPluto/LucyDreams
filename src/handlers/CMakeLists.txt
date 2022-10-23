@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 project(Handlers)
 
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 include(FindPkgConfig)
 pkg_search_module(SDL2 required SDL2)
 pkg_search_module(SDL2IMAGE required SDL2_image>=2.0.0)
@@ -19,6 +22,7 @@ HandlerError.h
 ImageHandler.h
 InputHandler.h
 WindowHandler.h
+SceneHandler.h
 src/Camera.cpp
 src/CameraHandler.cpp
 src/DisplayHandler.cpp
@@ -30,5 +34,6 @@ src/HandlerError.cpp
 src/ImageHandler.cpp
 src/InputHandler.cpp
 src/WindowHandler.cpp
+src/SceneHandler.cpp
 )
 target_link_libraries(Handlers ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})

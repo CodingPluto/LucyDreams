@@ -18,28 +18,42 @@ enum ls__LucyState
 
 
 
-class Lucy : public PlatformerCollision
+class Lucy : public Sprite
 {
     AnimationComponent lucyAnimation;
 private:
+    Camera playerCamera;
+    int coyoteCounter = 0;
+    bool coyoteTime = false;
+    bool extendedJump = false;
+    unsigned int framesSinceJump;
     bool previousTouching[4];
+    bool touching[4];
+    bool jumping;
+    bool hadCurrentPlatformLastFrame = false;
     ls__LucyState previousState;
     Position2 velocity;
     static const std::string lucyImagesPath;
-    Camera playerCamera;
     static const int defaultRunSpeed = 140;
     static const int maxRunSpeed = 400;
     static const int terminalVelocity = 5000;
     static const int jumpHeight = 400;
     static const int fallSpeed = 25;
     static const int lucyScale = 2;
+    static const int coyoteFrames = 5;
+    std::vector<AABBCollider*> &platforms;
+    std::vector<int> heightOfNewPlatforms;
+    class CloudPlatform* currentPlatform = nullptr;
+    class AABBCollider* currentPlatformCollider = nullptr;
 
     bool onGround();
     void resetFrameVariables();
     ls__LucyState determineState();
     void enforceState(ls__LucyState currentState);
     void handleInput();
+    void correctPosition();
 public:
+    void onStart() override;
     Lucy(std::vector<AABBCollider*> &platforms);
     void update();
 };
