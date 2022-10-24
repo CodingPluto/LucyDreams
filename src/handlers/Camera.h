@@ -18,9 +18,11 @@ private:
     int textureWidth;
     int textureHeight;
     st__ScrollingType st;
+    Position2 cameraOffset;
 
 public:
     void onImageSet();
+    void setCameraOffset(Position2 cameraOffset);
     void setCameraScrollingType(st__ScrollingType newSt);
     Camera(class Sprite *owner, class ImageComponent *image);
     Camera();

@@ -14,6 +14,16 @@ bool WindowHandler::initalize()
     }
     return true;
 }
+
+float WindowHandler::getCentreScreenX(float width)
+{
+    return (getScreenWidth() / 2) - (width / 2);
+}
+float WindowHandler::getCentreScreenY(float height)
+{
+    return (getScreenHeight() / 2) - (height / 2);
+}
+
 unsigned short WindowHandler::getScreenWidth()
 {
     return SDL_GetWindowSurface(window)->w;

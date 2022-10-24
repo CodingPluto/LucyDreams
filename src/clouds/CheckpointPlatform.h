@@ -6,7 +6,8 @@ class CheckpointPlatform : public CloudPlatform
 {
 
 public:
-    CheckpointPlatform(std::vector<AABBCollider*> &colliders, float xPosition);
+    const std::string sceneName;
+    CheckpointPlatform(std::vector<AABBCollider*> &colliders, float xPosition, std::string newSceneName);
     ~CheckpointPlatform();
 
 };

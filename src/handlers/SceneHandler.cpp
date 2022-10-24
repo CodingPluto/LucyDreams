@@ -11,8 +11,10 @@ SceneHandler::SceneHandler():Handler(hp_OnInput)
 {
     isModifyingScene = false;
     debugName = "Scene Handler";
-    addScene(firstScene,"First");
-    addScene(secondScene,"Second");
+    addScene(Awake1,"Awake1");
+    addScene(Awake2,"Awake2");
+    addScene(Awake3,"Awake3");
+    addScene(Awake4,"Awake4");
 }
 
 
@@ -55,6 +57,11 @@ HandlerError* SceneHandler::tick()
     return nullptr;
 }
 
+const std::string &SceneHandler::getCurrentSceneName()
+{
+    return sceneName;
+}
+
 void SceneHandler::setScene(const string &sceneName)
 {
     this->sceneName = sceneName;
@@ -77,4 +84,5 @@ void SceneHandler::modifyScene()
     {
         game->gameObjectHandler->addGameObject(persistentGameObject);
     }
+    cout << "---- NEW SCENE {" << sceneName << "} ----" << endl;
 }

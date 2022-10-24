@@ -1,5 +1,6 @@
 #include "Lucy.h"
 #include "../clouds/CloudPlatform.h"
+#include "../clouds/CheckpointPlatform.h"
 #include "../handlers/InputHandler.h"
 #include "../handlers/WindowHandler.h"
 #include "../handlers/CameraHandler.h"
@@ -22,10 +23,9 @@ Lucy::Lucy(std::vector<AABBCollider*> &platforms): lucyAnimation(this), playerCa
     //collisionChecker.setRawOffset({2,4});
     setDebugName("Lucy");
     setUpdateOrder(10);
-    lucyAnimation.setUpdateOrder(9);
+    lucyAnimation.setDrawOrder(0);
     scale = 4;
     jumping = false;
-    position = Position2(100,100);
     auto getAnimation = [](string pathName, int size)
     {
         vector<string> paths;
@@ -41,8 +41,10 @@ Lucy::Lucy(std::vector<AABBCollider*> &platforms): lucyAnimation(this), playerCa
     lucyAnimation.addAnimation(getAnimation("lucy_jump",8), "jump", 0.03, false);
     lucyAnimation.addAnimation(getAnimation("lucy_die",8), "die", 0.1, false);
     lucyAnimation.changeConfiguration("idle");
+    position = Position2(game->windowHandler->getCentreScreenX(lucyAnimation.getWidth()), 200);
     game->cameraHandler->setActiveCamera(&playerCamera);
     playerCamera.setCameraScrollingType(st_VerticalOnly);
+    playerCamera.setCameraOffset({0,-170});
     lucyAnimation.setImage(lucyImagesPath + "lucy_idle" + "/" + "sprite_0" + ".png");
 }
 bool Lucy::onGround()
@@ -215,6 +217,14 @@ void Lucy::checkCollision()
                     {
                         heightOfNewPlatforms.emplace_back(platform->position.y);
                         currentPlatformCollider = platform;
+                        if (currentPlatformCollider->hasColliderTag("CloudPlatformCheckpoint"))
+                        {
+                            CheckpointPlatform *checkpointPlatform = dynamic_cast<CheckpointPlatform*>(currentPlatformCollider->getOwner());
+                            if (checkpointPlatform->sceneName != game->sceneHandler->getCurrentSceneName())
+                            {
+                                game->sceneHandler->setScene(checkpointPlatform->sceneName);
+                            }
+                        }
                         /*
                         */
                     }

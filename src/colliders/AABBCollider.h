@@ -8,6 +8,7 @@ private:
     float rawWidth;
     float rawHeight;
     Position2 rawOffset;
+    std::vector<std::string> colliderTags;
 public:
     Position2 getAdjustedPosition();
     ~AABBCollider();
@@ -17,6 +18,9 @@ public:
     
     AABBCollider(float x, float y, float width, float height, class Sprite *owner = nullptr);
     AABBCollider(SDL_Rect rect, class Sprite *owner = nullptr);
+    void addColliderTag(std::string tagName);
+    void removeColliderTag(std::string tagName);
+    bool hasColliderTag(std::string tagName);
     void setRawWidth(float newWidth);
     void setRawHeight(float newHeight);
     void setRawOffset(Position2 offset);

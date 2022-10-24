@@ -24,7 +24,7 @@ class LucyDreams : public Game
         cameraHandler = new CameraHandler();
         imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
         sceneHandler = new SceneHandler();
-        sceneHandler->setScene("First");
+        sceneHandler->setScene("Awake1");
     }
 public:
     ~LucyDreams()

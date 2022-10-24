@@ -18,6 +18,7 @@ private:
     HandlerError* tick();
     std::string sceneName;
 public:
+    const std::string &getCurrentSceneName();
     void setScene(const std::string &sceneName);
     SceneHandler();
     ~SceneHandler();

@@ -13,6 +13,8 @@ private:
     class SDL_Window *window;
 protected:
 public:
+    float getCentreScreenX(float width);
+    float getCentreScreenY(float height);
     void linkToRenderer(class DisplayHandler *displayHandler);
     bool initalize();
     unsigned short getScreenWidth();

@@ -15,6 +15,11 @@ Camera::Camera(Sprite *owner, ImageComponent *image): owner(owner)
     st = st_All;
 }
 
+void Camera::setCameraOffset(Position2 cameraOffset)
+{
+    this->cameraOffset = cameraOffset;
+}
+
 void Camera::onImageSet()
 {
     SDL_Texture *imageTexture;
@@ -68,5 +73,6 @@ Position2 Camera::cameraUpdate()
                 break;
         }
     }
+    camOffset = camOffset + cameraOffset;
     return camOffset;
 }

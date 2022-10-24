@@ -57,6 +57,8 @@ void AnimationComponent::changeConfiguration(string configurationName)
         game->imageHandler->addImageDrawer(this);
         imageComponentInitalized = true;
         game->imageHandler->reloadImageDrawerProrities();
+        textureWidth = animationConfigurations[currentConfigurationName]->dimensions[0].first;
+        textureHeight = animationConfigurations[currentConfigurationName]->dimensions[0].second;
     }
     
 }
@@ -103,6 +105,6 @@ void AnimationComponent::debugCurrentAnimation()
 {
     cout << "Current Configuration: " << currentConfigurationName << " (" << &animationConfigurations[currentConfigurationName] << ")" << endl;
     cout << "Delta Threshold: " << animationConfigurations[currentConfigurationName]->deltaThreshold << endl;
-    cout << "First Dimensions:  " << animationConfigurations[currentConfigurationName]->dimensions[0].first << " , " << animationConfigurations[currentConfigurationName]->dimensions[0].second  << endl;
+    cout << "Awake1 Dimensions:  " << animationConfigurations[currentConfigurationName]->dimensions[0].first << " , " << animationConfigurations[currentConfigurationName]->dimensions[0].second  << endl;
     cout << "Looping? " << animationConfigurations[currentConfigurationName]->looping << endl;
 }

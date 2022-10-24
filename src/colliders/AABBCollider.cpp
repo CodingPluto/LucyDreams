@@ -128,3 +128,29 @@ AABBCollider::~AABBCollider()
         }
     }
 }
+
+void AABBCollider::addColliderTag(string tagName)
+{
+    colliderTags.emplace_back(tagName);
+}
+void AABBCollider::removeColliderTag(string tagName)
+{
+    for (auto it = colliderTags.begin(); it < colliderTags.end(); ++it)
+    {
+        if (*it == tagName)
+        {
+            colliderTags.erase(it);
+        }
+    }
+}
+bool AABBCollider::hasColliderTag(string tagName)
+{
+    for (const string &tag : colliderTags)
+    {
+        if (tag == tagName)
+        {
+            return true;
+        }
+    }
+    return false;
+}
