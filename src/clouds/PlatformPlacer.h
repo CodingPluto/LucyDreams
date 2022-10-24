@@ -1,6 +1,6 @@
 #ifndef SRC_CLOUDS_PLATFORM_PLACER_H
 #define SRC_CLOUDS_PLATFORM_PLACER_H
-#include "../GameObject.h"
+#include "../gameData/GameObject.h"
 
 class PlatformPlacer : public GameObject
 {

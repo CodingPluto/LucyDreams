@@ -1,6 +1,6 @@
 #ifndef SRC_CLOUDS_CLOUD_PLATFORM_H
 #define SRC_CLOUDS_CLOUD_PLATFORM_H
-#include "../Sprite.h"
+#include "../gameData/Sprite.h"
 #include "../components/ImageComponent.h"
 #include "../colliders/AABBCollider.h"
 class CloudPlatform : public Sprite

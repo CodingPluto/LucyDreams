@@ -1,6 +1,6 @@
 #ifndef SRC_PLATFORMER_COLLSION
 #define SRC_PLATFORMER_COLLISION
-#include "../Sprite.h"
+#include "../gameData/Sprite.h"
 #include "AABBCollider.h"
 
 enum Touching

@@ -1,6 +1,6 @@
 #include "allScenes.h"
-#include "GameObject.h"
-#include "Lucy.h"
+#include "gameData/GameObject.h"
+#include "lucy/Lucy.h"
 #include "clouds/PlatformPlacer.h"
 #include "colliders/AABBCollider.h"
 using namespace std;

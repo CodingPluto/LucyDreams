@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_library(Colliders
     PlatformerCollision.h
-    src/PlatformerCollision.cpp
     Collider.h
     AABBCollider.h
-    src/Collider.cpp
-    src/AABBCollider.cpp
+    PlatformerCollision.cpp
+    Collider.cpp
+    AABBCollider.cpp
 )

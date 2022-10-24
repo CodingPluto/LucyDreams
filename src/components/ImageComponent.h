@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 #include <functional>
 #include "Component.h"
-#include "../Position.h"
+#include "../utils/Position.h"
 
 
 class ImageComponent : public Component

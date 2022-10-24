@@ -1,6 +1,6 @@
 #include <ctime>
-#include "Game.h"
-#include "Sprite.h"
+#include "gameData/Game.h"
+#include "gameData/Sprite.h"
 #include "utils/utils.h"
 #include "handlers/WindowHandler.h"
 #include "handlers/DisplayHandler.h"

@@ -2,7 +2,7 @@
 #define SRC_COLLIDER_H
 #include <SDL2/SDL.h>
 #include "../components/Component.h"
-#include "../Position.h"
+#include "../utils/Position.h"
 
 enum CollisionType{CIRCULAR_COLLISION = 1, AABB_COLLISION = 2};
 

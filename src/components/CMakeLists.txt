@@ -9,7 +9,7 @@ add_library(Components
 AnimationComponent.h
 Component.h
 ImageComponent.h
-src/AnimationComponent.cpp
-src/Component.cpp
-src/ImageComponent.cpp
+AnimationComponent.cpp
+Component.cpp
+ImageComponent.cpp
 )
