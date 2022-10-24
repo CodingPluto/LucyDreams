@@ -173,7 +173,6 @@ void Lucy::handleInput()
             coyoteTime = false;
             framesSinceJump = 0;
             extendedJump = true;
-            game->sceneHandler->setScene("Second");
         };
     }
     if (abs(velocity.x) > maxRunSpeed) velocity.x = sign(velocity.x) * (maxRunSpeed);

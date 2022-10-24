@@ -23,6 +23,7 @@ ImageHandler.h
 InputHandler.h
 WindowHandler.h
 SceneHandler.h
+GameObjectHandler.h
 src/Camera.cpp
 src/CameraHandler.cpp
 src/DisplayHandler.cpp
@@ -35,5 +36,6 @@ src/ImageHandler.cpp
 src/InputHandler.cpp
 src/WindowHandler.cpp
 src/SceneHandler.cpp
+src/GameObjectHandler.cpp
 )
 target_link_libraries(Handlers ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})

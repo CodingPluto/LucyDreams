@@ -53,6 +53,7 @@ public:
     class CameraHandler *cameraHandler = nullptr;
     class InputHandler *inputHandler = nullptr;
     class SceneHandler *sceneHandler = nullptr;
+    class GameObjectHandler *gameObjectHandler = nullptr;
     double deltaTime = 0.016;
     long long getFramesSinceInitalization();
     void initalize();

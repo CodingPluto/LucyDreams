@@ -9,6 +9,7 @@
 #include "handlers/CameraHandler.h"
 #include "handlers/InputHandler.h"
 #include "handlers/SceneHandler.h"
+#include "handlers/GameObjectHandler.h"
 #include "components/AnimationComponent.h"
 #include "handlers/Camera.h"
 #include "colliders/AABBCollider.h"
@@ -25,6 +26,7 @@ class LucyDreams : public Game
     vector<AABBCollider*> colliders;
     void loadHandlers()
     {
+        gameObjectHandler = new GameObjectHandler();
         windowHandler = new WindowHandler("Lucy Dreams!",0,0,1280,720);
         eventsHandler = new EventsHandler();
         inputHandler = new InputHandler();
