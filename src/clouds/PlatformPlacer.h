@@ -1,6 +1,6 @@
-#ifndef SRC_PLATFORM_PLACER_H
-#define SRC_PLATFORM_PLACER_H
-#include "GameObject.h"
+#ifndef SRC_CLOUDS_PLATFORM_PLACER_H
+#define SRC_CLOUDS_PLATFORM_PLACER_H
+#include "../GameObject.h"
 
 class PlatformPlacer : public GameObject
 {
@@ -12,7 +12,6 @@ private:
     bool hasActiveCloudPlatform;
     int framesSinceLastClick = 0;
     void outputPlatformsToFile();
-    void onStart() final;
 public:
     PlatformPlacer(std::vector<class AABBCollider*> &colliders);
     ~PlatformPlacer();

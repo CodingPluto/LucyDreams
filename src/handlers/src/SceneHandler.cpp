@@ -3,30 +3,21 @@
 #include "../SceneHandler.h"
 #include "../GameObjectHandler.h"
 #include "../../GameObject.h"
-#include "../../colliders/AABBCollider.h"
-#include "../../PlatformPlacer.h"
-#include "../../Lucy.h"
+#include "../../allScenes.h"
+
 
 using namespace std;
-vector<AABBCollider*> colliders;
-void myFirstScene(vector<GameObject*> *dynamicGameObjects)
-{
-    dynamicGameObjects->emplace_back(new PlatformPlacer(colliders));
-    dynamicGameObjects->emplace_back(new Lucy(colliders));
-}
-
-void mySecondScene(vector<GameObject*> *dynamicGameObjects)
-{
-
-}
-
 SceneHandler::SceneHandler():Handler(hp_OnInput)
 {
     isModifyingScene = false;
     debugName = "Scene Handler";
-    addScene(myFirstScene,"First");
-    addScene(mySecondScene,"Second");
+    addScene(firstScene,"First");
+    addScene(secondScene,"Second");
 }
+
+
+
+
 SceneHandler::~SceneHandler()
 {
     for (auto dynamicGameObject : dynamicGameObjects)

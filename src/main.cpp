@@ -10,13 +10,6 @@
 #include "handlers/InputHandler.h"
 #include "handlers/SceneHandler.h"
 #include "handlers/GameObjectHandler.h"
-#include "components/AnimationComponent.h"
-#include "handlers/Camera.h"
-#include "colliders/AABBCollider.h"
-#include "Lucy.h"
-#include "CloudPlatform.h"
-#include "PlatformPlacer.h"
-//#include "Trigger.h"
 using namespace std;
 
 

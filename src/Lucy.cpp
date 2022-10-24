@@ -1,5 +1,5 @@
 #include "Lucy.h"
-#include "CloudPlatform.h"
+#include "clouds/CloudPlatform.h"
 #include "handlers/InputHandler.h"
 #include "handlers/WindowHandler.h"
 #include "handlers/CameraHandler.h"

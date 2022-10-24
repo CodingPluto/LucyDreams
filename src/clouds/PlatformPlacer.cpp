@@ -1,38 +1,14 @@
 #include <fstream>
 #include <iostream>
 #include "PlatformPlacer.h"
-#include "handlers/InputHandler.h"
-#include "handlers/CameraHandler.h"
-#include "handlers/GameObjectHandler.h"
+#include "../handlers/InputHandler.h"
+#include "../handlers/CameraHandler.h"
+#include "../handlers/GameObjectHandler.h"
 #include "CloudPlatform.h"
+#include "../utils/utils.h"
 using namespace std;
 
 
-void PlatformPlacer::onStart()
-{   /*
-    myPlatforms.clear();
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{105.000000, 497.338074},4,2));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{447.000000, 648.363403},2,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{289.000000, 540.824524},4,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{652.000000, 921.833923},2,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{624.000000, 911.898926},2,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{480.000000, 547.007996},3,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{630.000000, 570.164917},1,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{702.000000, 489.903961},2,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{488.000000, 629.214905},2,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{568.000000, 710.662720},4,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{568.000000, 610.428284},3,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{293.000000, 472.388000},3,2));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{293.000000, 643.228699},3,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{327.000000, 460.642151},2,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{735.000000, 622.534424},5,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{735.000000, 500.963196},1,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{628.000000, 483.644409},1,3));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{572.000000, 478.666168},3,1));
-    myPlatforms.emplace_back(new CloudPlatform(colliders,{797.000000, 229.672592},3,1));
-    */
-
-}
 
 PlatformPlacer::PlatformPlacer(vector<AABBCollider*> &colliders):colliders(colliders)
 {
@@ -96,7 +72,7 @@ void PlatformPlacer::update()
     else if (game->inputHandler->isLMBOneClick() && framesSinceLastClick > 5)
     {
         Position2 mousePosition = {(float)game->inputHandler->getMouseX(),(float)game->inputHandler->getMouseY()};
-        myPlatforms.emplace_back(new CloudPlatform(colliders,mousePosition + game->cameraHandler->getCameraOffset(),-1,-1));
+        myPlatforms.emplace_back(new CloudPlatform(colliders,mousePosition + game->cameraHandler->getCameraOffset(),generateRandomNumber(1,5)));
         framesSinceLastClick = 0;
         activeCloudPlatform = myPlatforms[myPlatforms.size() - 1];
     }

@@ -16,6 +16,7 @@ add_subdirectory(src/utils)
 add_subdirectory(src/handlers)
 add_subdirectory(src/components)
 add_subdirectory(src/colliders)
+add_subdirectory(src/clouds)
 add_executable(LucyDreams
     src/Game.cpp
     src/Game.h
@@ -29,10 +30,8 @@ add_executable(LucyDreams
     src/Trigger.h
     src/Lucy.h
     src/Lucy.cpp
-    src/CloudPlatform.h
-    src/CloudPlatform.cpp
-    src/PlatformPlacer.h
-    src/PlatformPlacer.cpp
+    src/allScenes.h
+    src/allScenes.cpp
 )
 target_include_directories(LucyDreams PUBLIC
 "${PROJECT_BINARY_DIR}"
@@ -41,4 +40,4 @@ target_include_directories(LucyDreams PUBLIC
 "${PROJECT_SOURCE_DIR}"
 )
 target_link_libraries(LucyDreams ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
-target_link_libraries(LucyDreams Utilities Handlers Components Colliders)
+target_link_libraries(LucyDreams Handlers Clouds Utilities Components Colliders)

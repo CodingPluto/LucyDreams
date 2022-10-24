@@ -128,6 +128,11 @@ void GameObjectHandler::deleteAtFrameEnd(GameObject *address)
 
 void GameObjectHandler::reloadGameObjectPriorities()
 {
+    /*
+    if (game->getTickPoint() == hp_OnUpdate)
+    {
+        throw runtime_error("Can't reload GameObjects as updating!");
+    }*/
     int previousUpdateOrder = numeric_limits<int>::max();
     int updateOrder;
     for (vector<GameObject*>::size_type i = 0; i < gameObjects.size(); ++i)
