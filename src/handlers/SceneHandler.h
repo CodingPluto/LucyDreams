@@ -11,7 +11,6 @@ private:
     bool initalize();
     bool isModifyingScene;
     std::vector<class GameObject*> dynamicGameObjects;
-    std::vector<class GameObject*> loadedGameObjects;
     std::vector<class GameObject*> persistentGameObjects;
     std::map<std::string,SceneFunction> scenesFunctions;
     void addScene(SceneFunction sceneFunction,std::string sceneName);

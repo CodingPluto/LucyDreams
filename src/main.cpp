@@ -22,8 +22,6 @@ using namespace std;
 
 class LucyDreams : public Game
 {
-    vector<GameObject*> loadedSprites;
-    vector<AABBCollider*> colliders;
     void loadHandlers()
     {
         gameObjectHandler = new GameObjectHandler();
@@ -33,16 +31,7 @@ class LucyDreams : public Game
         cameraHandler = new CameraHandler();
         imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
         sceneHandler = new SceneHandler();
-    }
-    void loadGameData()
-    {
-        debugLog("--- Starting Loading Game Data ---");
-        setSeed(time(0));
-        //loadedSprites.emplace_back(new PlatformPlacer(colliders));
-        debugLog("Loaded Sprites: " + to_string(loadedSprites.size()));
-        debugLog("--- Loaded Game Data! ---");
         sceneHandler->setScene("First");
-
     }
 public:
     ~LucyDreams()
@@ -53,10 +42,6 @@ public:
             {
                 delete handler;
             }
-        }
-        for (GameObject *loadedSprite : loadedSprites)
-        {
-            delete loadedSprite;
         }
     }
 };

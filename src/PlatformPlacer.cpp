@@ -3,6 +3,7 @@
 #include "PlatformPlacer.h"
 #include "handlers/InputHandler.h"
 #include "handlers/CameraHandler.h"
+#include "handlers/GameObjectHandler.h"
 #include "CloudPlatform.h"
 using namespace std;
 
@@ -89,7 +90,7 @@ void PlatformPlacer::update()
     }
     if (game->inputHandler->isRMBOneClick() && hasActiveCloudPlatform)
     {
-        game->deleteAtFrameEnd(activeCloudPlatform);
+        game->gameObjectHandler->deleteAtFrameEnd(activeCloudPlatform);
         myPlatforms.erase(activeCloudPlatformIter);
     }
     else if (game->inputHandler->isLMBOneClick() && framesSinceLastClick > 5)

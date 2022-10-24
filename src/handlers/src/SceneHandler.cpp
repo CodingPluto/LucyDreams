@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../CameraHandler.h"
 #include "../SceneHandler.h"
+#include "../GameObjectHandler.h"
 #include "../../GameObject.h"
 #include "../../colliders/AABBCollider.h"
 #include "../../PlatformPlacer.h"
@@ -42,7 +43,6 @@ void SceneHandler::addScene(SceneFunction sceneFunction,string sceneName)
 
 bool SceneHandler::initalize()
 {
-    game->setGameObjects(&loadedGameObjects);
     return true;
 }
 
@@ -74,7 +74,7 @@ void SceneHandler::modifyScene()
 {
     game->cameraHandler->setActiveCamera(nullptr);
 
-    loadedGameObjects.clear();
+    game->gameObjectHandler->purge();
     for (auto dynamicGameObject : dynamicGameObjects)
     {
         delete dynamicGameObject;
@@ -84,6 +84,6 @@ void SceneHandler::modifyScene()
 
     for (auto persistentGameObject : persistentGameObjects)
     {
-        loadedGameObjects.emplace_back(persistentGameObject);
+        game->gameObjectHandler->addGameObject(persistentGameObject);
     }
 }

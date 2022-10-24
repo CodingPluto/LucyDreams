@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GameObject.h"
 #include "handlers/DisplayHandler.h"
+#include "handlers/GameObjectHandler.h"
 using namespace std;
 
 Game *GameObject::game = nullptr;
@@ -18,7 +19,7 @@ GameObject::GameObject(){
     {
         throw "You haven't setup the game instance for the Game Objects.";
     }
-    game->addGameObject(this);
+    game->gameObjectHandler->addGameObject(this);
 }
 
 void GameObject::setDebugName(const std::string &debugName)
@@ -33,7 +34,7 @@ const std::string &GameObject::getDebugName()
 GameObject::~GameObject()
 {
     gs = gs_Removed;
-    game->removeGameObject(this);
+    game->gameObjectHandler->removeGameObject(this);
 }
 
 int GameObject::getUpdateOrder()
@@ -44,7 +45,7 @@ int GameObject::getUpdateOrder()
 void GameObject::setUpdateOrder(int priority)
 {
     this->priority = priority;
-    game->reloadGameObjProrities();
+    game->gameObjectHandler->reloadGameObjectPriorities();
 }
 
 void GameObject::enable()

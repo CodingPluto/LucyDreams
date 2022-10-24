@@ -16,7 +16,6 @@ protected:
     virtual ~Game();
     Game();
     virtual void loadHandlers() = 0;
-    virtual void loadGameData() = 0;
     std::vector<class Handler*> organisedHandlers[4];
 private:
     hp__HandlerTickPoint tickPoint = hp_NoTick;
@@ -27,10 +26,6 @@ private:
     std::chrono::_V2::system_clock::time_point previousFrameDT;
     std::chrono::_V2::system_clock::time_point currentFrameDT;
 
-    std::vector<class GameObject*> *gameObjects;
-    std::vector<class GameObject*> pendingGameObjects;
-    std::vector<class GameObject*> pendingRemovalGameObjects;
-    std::vector<class GameObject*> gameObjectsToBeDeleted;
     void gameLoop();
     void getInput();
     void updateGame();
@@ -44,7 +39,6 @@ private:
     void updateHandlers(hp__HandlerTickPoint tickPoint);
 public:
     hp__HandlerTickPoint getTickPoint();
-    void setGameObjects(std::vector<GameObject*> *gameObjectsPtr);
     void debugLog(std::string text);
     const bool debugMode = false;
     class WindowHandler *windowHandler = nullptr;
@@ -59,13 +53,6 @@ public:
     void initalize();
     void addHandler(Handler *handler, hp__HandlerTickPoint tickPoint);
     void exitGame();
-    void deleteAtFrameEnd(GameObject *address);
-    /*
-    bool keyState(SDL_Scancode key);
-    */
-    void reloadGameObjProrities();
-    void addGameObject(GameObject *address);
-    void removeGameObject(GameObject *address);
 };
 
 #endif

@@ -36,7 +36,7 @@ private:
     static const std::string lucyImagesPath;
     static const int defaultRunSpeed = 140;
     static const int maxRunSpeed = 400;
-    static const int terminalVelocity = 5000;
+    static const int terminalVelocity = 2000;
     static const int jumpHeight = 400;
     static const int fallSpeed = 25;
     static const int lucyScale = 2;
