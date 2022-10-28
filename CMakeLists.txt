@@ -31,4 +31,4 @@ target_include_directories(LucyDreams PUBLIC
 "${PROJECT_SOURCE_DIR}"
 )
 target_link_libraries(LucyDreams ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
-target_link_libraries(LucyDreams Lucy GameData Handlers Clouds Utilities Components Colliders)
+target_link_libraries(LucyDreams Lucy Clouds GameData Handlers Utilities Components Colliders)

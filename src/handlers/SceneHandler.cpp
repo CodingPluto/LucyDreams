@@ -9,80 +9,123 @@
 using namespace std;
 SceneHandler::SceneHandler():Handler(hp_OnInput)
 {
-    isModifyingScene = false;
     debugName = "Scene Handler";
-    addScene(Awake1,"Awake1");
-    addScene(Awake2,"Awake2");
-    addScene(Awake3,"Awake3");
-    addScene(Awake4,"Awake4");
+    addSceneConfiguration("awake1",awake1);
+    addSceneConfiguration("player",player);
+    addSceneConfiguration("developer",developer);
+    addSceneConfiguration("awake2",awake2);
+}
+void SceneHandler::addSceneConfiguration(const string sceneName, SceneFunction sceneLoader)
+{
+
+    for (int i = 0; i < scenes.size(); ++i)
+    {
+        if (scenes[i].name == sceneName)
+        {
+            cout << "Duplicate scene name attempted to be loaded. Failed." << endl;
+            return;
+        }
+    }
+    Scene scene(sceneName, sceneLoader);
+    scenes.emplace_back(scene);
 }
 
+void SceneHandler::loadScene(std::string sceneName)
+{
+    for (Scene *scene : scenesLoaded)
+    {
+        if (scene->name == sceneName)
+        {
+            throw runtime_error("Scene \'" + sceneName + "\' was loaded twice!!");
+        }
+    }
+    bool checkScenesPendingLoad = true;
+    for (Scene *scene : scenesPendingLoad)
+        {
+            if (scene->name == sceneName)
+            {
+                throw runtime_error("Scene \'" + sceneName + "\' was loaded twice!!");
+            }
+        }
+    for (Scene &scene : scenes)
+    {
+        if (scene.name == sceneName)
+        {
+            scenesPendingLoad.emplace_back(&scene);
+            return;
+        }
+    }
+    throw runtime_error("Tried to load scene \'" + sceneName + "\' that doesn't exist!");
+}
+void SceneHandler::unloadScene(std::string sceneName)
+{
+    for (int i = 0; i < scenesLoaded.size(); ++i)
+    {
+        if (scenesLoaded[i]->name == sceneName)
+        {
+            cout << "Added to scenes pending unload" << endl;
+            scenesPendingUnload.emplace_back(scenesLoaded[i]);
+            return;
+        }
+    }
+    for (int i = 0; i < scenesPendingLoad.size(); ++i)
+    {
+        if (scenesPendingLoad[i]->name == sceneName)
+        {
+            scenesPendingLoad.erase(scenesPendingLoad.begin() + i);
+            return;
+        }
+    }
+    throw runtime_error("Tried to unload scene \'" + sceneName + "\' that isn't loaded or doesn't exist!");
+}
 
 
 
 SceneHandler::~SceneHandler()
 {
-    for (auto dynamicGameObject : dynamicGameObjects)
+    for (int i = 0; i < scenesLoaded.size(); ++i)
     {
-        delete dynamicGameObject;
+        cout << scenesLoaded[i]->name << endl;
+        scenesLoaded[i]->unload();
     }
-    dynamicGameObjects.clear();
+    scenesLoaded.clear();
 }
 
-void SceneHandler::addScene(SceneFunction sceneFunction,string sceneName)
-{
-    scenesFunctions[sceneName] = sceneFunction;
-}
-
-bool SceneHandler::initalize()
-{
-    return true;
-}
 
 HandlerError* SceneHandler::tick()
 {
-    if (isModifyingScene)
+    for (auto scenePendingLoad : scenesPendingLoad)
     {
-        try
-        {
-            scenesFunctions.at(sceneName);
-        }
-        catch(const exception &e)
-        {
-            return new HandlerError(et_GameError,"The scene \'" + sceneName + "\' doesn\'t exist!",this);
-        }
-        modifyScene();
-        isModifyingScene = false;
+        scenePendingLoad->load();
+        scenesLoaded.emplace_back(scenePendingLoad);
     }
+    scenesPendingLoad.clear();
+    for (int i = 0; i < scenesLoaded.size(); ++i)
+    {
+        for (auto scenePendingUnload : scenesPendingUnload)
+        {
+            if (scenesLoaded[i] == scenePendingUnload)
+            {
+                scenePendingUnload->unload();
+                game->cameraHandler->setActiveCamera(nullptr);
+                scenesLoaded.erase(scenesLoaded.begin() + i);
+            }
+        }
+    }
+    scenesPendingUnload.clear();
     return nullptr;
 }
 
-const std::string &SceneHandler::getCurrentSceneName()
+const vector<const string*> SceneHandler::getLoadedScenesNames()
 {
-    return sceneName;
-}
-
-void SceneHandler::setScene(const string &sceneName)
-{
-    this->sceneName = sceneName;
-    isModifyingScene = true;
-}
-
-void SceneHandler::modifyScene()
-{
-    game->cameraHandler->setActiveCamera(nullptr);
-
-    game->gameObjectHandler->purge();
-    for (auto dynamicGameObject : dynamicGameObjects)
+    vector<const string*> sceneNames;
+    for (auto scene : scenesLoaded)
     {
-        delete dynamicGameObject;
+        sceneNames.emplace_back(&(scene->name));
     }
-    dynamicGameObjects.clear();
-    scenesFunctions.at(sceneName)(&dynamicGameObjects);
-
-    for (auto persistentGameObject : persistentGameObjects)
+    for (auto scene : scenesPendingLoad)
     {
-        game->gameObjectHandler->addGameObject(persistentGameObject);
+        sceneNames.emplace_back(&(scene->name));
     }
-    cout << "---- NEW SCENE {" << sceneName << "} ----" << endl;
+    return sceneNames;
 }

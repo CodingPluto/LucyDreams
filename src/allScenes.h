@@ -5,8 +5,11 @@
 
 extern std::vector<class AABBCollider*> colliders;
 
-void Awake1(std::vector<class GameObject*> *dynamicGameObjects);
-void Awake2(std::vector<class GameObject*> *dynamicGameObjects);
-void Awake3(std::vector<class GameObject*> *dynamicGameObjects);
-void Awake4(std::vector<class GameObject*> *dynamicGameObjects);
+void developer(std::vector<class GameObject*> *dynamicGameObjects);
+void player(std::vector<class GameObject*> *dynamicGameObjects);
+
+void awake1(std::vector<class GameObject*> *dynamicGameObjects);
+void awake2(std::vector<class GameObject*> *dynamicGameObjects);
+void awake3(std::vector<class GameObject*> *dynamicGameObjects);
+void awake4(std::vector<class GameObject*> *dynamicGameObjects);
 #endif

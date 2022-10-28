@@ -23,6 +23,7 @@ AnimationComponent::~AnimationComponent()
 void AnimationComponent::addAnimation(vector<string> imagePaths, string configurationName, float deltaThreshold, bool looping)
 {
     animationConfigurations[configurationName] = new AnimationConfiguration{.paths = imagePaths, .dimensions = {}, .deltaThreshold = deltaThreshold, .looping = looping};
+    cout << "Added Animation: " << configurationName << endl;
 }
 
 void AnimationComponent::changeConfiguration(string configurationName)

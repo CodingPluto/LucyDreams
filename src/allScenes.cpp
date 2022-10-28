@@ -8,12 +8,10 @@ using namespace std;
 
 vector<AABBCollider*> colliders;
 
-void Awake1(vector<GameObject*> *dynamicGameObjects)
-{
-    dynamicGameObjects->emplace_back(new Lucy(colliders));
-    dynamicGameObjects->emplace_back(new PlatformPlacer(colliders));
-    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, 300, "Awake1"));
 
+void awake1(vector<GameObject*> *dynamicGameObjects)
+{
+    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, 300, ""));
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{952.000000, 397.000000},5,2));
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{623.000000, 425.000000},4,2));
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{501.000000, 379.000000},5,3));
@@ -60,21 +58,41 @@ void Awake1(vector<GameObject*> *dynamicGameObjects)
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{22.000000, -551.750488},5,3));
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{110.000000, -105.000000},5,3));
     dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{554.000000, 194.000000},5,1));
-
-
-
-    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, -620,"Awake2"));
+    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, -620,"awake2"));
 
 }
 
-void Awake2(vector<GameObject*> *dynamicGameObjects)
+void awake2(vector<GameObject*> *dynamicGameObjects)
+{
+    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, -620,""));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{824.000000, -719.000000},5,1));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{479.000000, -700.000000},1,1));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{395.000000, -779.000000},5,3));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{157.000000, -746.000000},1,3));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{152.000000, -848.000000},2,2));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{293.000000, -701.000000},3,2));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{793.000000, -877.000000},4,2));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{865.000000, -807.000000},2,1));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{617.000000, -867.000000},3,2));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{1099.000000, -676.000000},3,3));
+    dynamicGameObjects->emplace_back(new CloudPlatform(colliders,{1143.000000, -835.000000},5,3));
+
+}
+
+void awake3(vector<GameObject*> *dynamicGameObjects)
+{}
+
+void awake4(vector<GameObject*> *dynamicGameObjects)
+{}
+
+
+
+void developer(vector<class GameObject*> *dynamicGameObjects)
 {
     dynamicGameObjects->emplace_back(new PlatformPlacer(colliders));
-    dynamicGameObjects->emplace_back(new CheckpointPlatform(colliders, -620,"Awake2"));
+
 }
-
-void Awake3(vector<GameObject*> *dynamicGameObjects)
-{}
-
-void Awake4(vector<GameObject*> *dynamicGameObjects)
-{}
+void player(vector<class GameObject*> *dynamicGameObjects)
+{
+    dynamicGameObjects->emplace_back(new Lucy(colliders));
+}

@@ -1,6 +1,6 @@
 #include <ctime>
 #include "gameData/Game.h"
-#include "gameData/Sprite.h"
+#include "gameData/Sprite.h" 
 #include "utils/utils.h"
 #include "handlers/WindowHandler.h"
 #include "handlers/DisplayHandler.h"
@@ -10,6 +10,7 @@
 #include "handlers/InputHandler.h"
 #include "handlers/SceneHandler.h"
 #include "handlers/GameObjectHandler.h"
+#include "allScenes.h"
 using namespace std;
 
 
@@ -24,7 +25,9 @@ class LucyDreams : public Game
         cameraHandler = new CameraHandler();
         imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
         sceneHandler = new SceneHandler();
-        sceneHandler->setScene("Awake1");
+        sceneHandler->loadScene("player");
+        sceneHandler->loadScene("developer");
+        sceneHandler->loadScene("awake1");
     }
 public:
     ~LucyDreams()

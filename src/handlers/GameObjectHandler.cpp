@@ -12,6 +12,12 @@ GameObjectHandler::~GameObjectHandler()
 {}
 HandlerError* GameObjectHandler::tick()
 {
+    game->debugLog("Pending GameObjects: " + to_string(pendingGameObjects.size()));
+    for (GameObject *gameObject : pendingGameObjects)
+    {
+        game->debugLog("Pending GameObject: " + gameObject->getDebugName() + " : " + addressToString(gameObject));
+        gameObjects.emplace_back(gameObject);
+    }
 
     game->debugLog("trying to remove " + to_string(pendingRemovalGameObjects.size()) + " GameObjects.");
     game->debugLog("There are currently " + to_string(gameObjects.size()) + " GameObjects.");
@@ -28,12 +34,6 @@ HandlerError* GameObjectHandler::tick()
                 }
             }
         }
-    }
-    game->debugLog("Pending GameObjects: " + to_string(pendingGameObjects.size()));
-    for (GameObject *gameObject : pendingGameObjects)
-    {
-        game->debugLog("Pending GameObject: " + gameObject->getDebugName() + " : " + addressToString(gameObject));
-        gameObjects.emplace_back(gameObject);
     }
 
     if (pendingGameObjects.size() > 0 || pendingRemovalGameObjects.size() > 0)

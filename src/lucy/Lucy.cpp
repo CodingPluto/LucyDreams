@@ -19,8 +19,15 @@ void Lucy::onStart()
 
 Lucy::Lucy(std::vector<AABBCollider*> &platforms): lucyAnimation(this), playerCamera(this,&lucyAnimation),platforms(platforms)
 {
-    //PlatformerCollision(platforms,8,19)
-    //collisionChecker.setRawOffset({2,4});
+    for (auto levelName : game->sceneHandler->getLoadedScenesNames())
+    {
+        cout << *levelName << ": " << endl;
+        if (*levelName == "awake1")
+        {
+            previouslyLoadedLevelName = levelName;
+
+        }
+    }
     setDebugName("Lucy");
     setUpdateOrder(10);
     lucyAnimation.setDrawOrder(0);
@@ -220,13 +227,30 @@ void Lucy::checkCollision()
                         if (currentPlatformCollider->hasColliderTag("CloudPlatformCheckpoint"))
                         {
                             CheckpointPlatform *checkpointPlatform = dynamic_cast<CheckpointPlatform*>(currentPlatformCollider->getOwner());
-                            if (checkpointPlatform->sceneName != game->sceneHandler->getCurrentSceneName())
+                            if (checkpointPlatform->sceneName.length() > 0)
                             {
-                                game->sceneHandler->setScene(checkpointPlatform->sceneName);
+                                unsigned int differencesNum;
+                                for (auto sceneName : game->sceneHandler->getLoadedScenesNames())
+                                {
+                                    if (*sceneName != checkpointPlatform->sceneName)
+                                    {
+                                        differencesNum++;
+                                    }
+                                }
+                                if (differencesNum == game->sceneHandler->getLoadedScenesNames().size())
+                                {
+                                    game->sceneHandler->loadScene(checkpointPlatform->sceneName);
+                                    
+                                    if (previouslyLoadedLevelName && previouslyLoadedLevelName->length() > 0)
+                                    {
+                                        game->sceneHandler->unloadScene(*previouslyLoadedLevelName);
+                                    }
+                                    previouslyLoadedLevelName = &checkpointPlatform->sceneName;
+                                    
+                                }
+
                             }
                         }
-                        /*
-                        */
                     }
                 }
             }

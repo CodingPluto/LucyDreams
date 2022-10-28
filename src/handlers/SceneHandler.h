@@ -1,25 +1,21 @@
 #ifndef SRC_HANDLERS_SCENE_HANDLER_H
 #define SRC_HANDLERS_SCENE_HANDLER_H
 #include <vector>
-#include <functional>
-#include <map>
 #include "Handler.h"
-typedef std::function<void(std::vector<class GameObject*> *gameObjectsPtr)> SceneFunction;
+#include "Scene.h"
 class SceneHandler : public Handler
 {
 private:
-    bool initalize();
-    bool isModifyingScene;
-    std::vector<class GameObject*> dynamicGameObjects;
-    std::vector<class GameObject*> persistentGameObjects;
-    std::map<std::string,SceneFunction> scenesFunctions;
-    void addScene(SceneFunction sceneFunction,std::string sceneName);
-    void modifyScene();
+    void addSceneConfiguration(std::string sceneName, SceneFunction sceneLoader);
     HandlerError* tick();
-    std::string sceneName;
+    std::vector<Scene> scenes;
+    std::vector<Scene*> scenesLoaded;
+    std::vector<Scene*> scenesPendingLoad;
+    std::vector<Scene*> scenesPendingUnload;
 public:
-    const std::string &getCurrentSceneName();
-    void setScene(const std::string &sceneName);
+    void loadScene(std::string sceneName);
+    void unloadScene(std::string sceneName);
+    const std::vector<const std::string*> getLoadedScenesNames();
     SceneHandler();
     ~SceneHandler();
 };

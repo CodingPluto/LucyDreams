@@ -29,6 +29,7 @@ CameraHandler::CameraHandler(): Handler(hp_OnRender)
 
 HandlerError* CameraHandler::tick()
 {
+    
     cameraOffset = activeCamera->cameraUpdate();
 
     return nullptr;

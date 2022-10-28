@@ -46,6 +46,8 @@ private:
     class CloudPlatform* currentPlatform = nullptr;
     class AABBCollider* currentPlatformCollider = nullptr;
 
+    const std::string *previouslyLoadedLevelName = nullptr;
+
     bool onGround();
     void resetFrameVariables();
     ls__LucyState determineState();
