@@ -79,13 +79,16 @@ void SceneHandler::unloadScene(std::string sceneName)
     throw runtime_error("Tried to unload scene \'" + sceneName + "\' that isn't loaded or doesn't exist!");
 }
 
-
+const bool SceneHandler::removingScenes()
+{
+    return scenesPendingUnload.size() > 0;
+}
 
 SceneHandler::~SceneHandler()
 {
     for (int i = 0; i < scenesLoaded.size(); ++i)
     {
-        cout << scenesLoaded[i]->name << endl;
+        cout << "Unloading Scene: " << scenesLoaded[i]->name << endl;
         scenesLoaded[i]->unload();
     }
     scenesLoaded.clear();
@@ -107,13 +110,22 @@ HandlerError* SceneHandler::tick()
             if (scenesLoaded[i] == scenePendingUnload)
             {
                 scenePendingUnload->unload();
-                game->cameraHandler->setActiveCamera(nullptr);
                 scenesLoaded.erase(scenesLoaded.begin() + i);
             }
         }
     }
     scenesPendingUnload.clear();
     return nullptr;
+}
+
+const vector<const string*> SceneHandler::getScenesUnloadingNames()
+{
+    vector<const string*> scenesUnloadingNames;
+    for (auto scene : scenesPendingUnload)
+    {
+        scenesUnloadingNames.emplace_back(&scene->name);
+    }
+    return scenesUnloadingNames;
 }
 
 const vector<const string*> SceneHandler::getLoadedScenesNames()

@@ -15,7 +15,7 @@ private:
     int drawPriority;
 protected:
     SDL_Texture* getLoadedImage(std::string path);
-    class Camera *cameraInstance = nullptr;
+    class SpriteCamera *cameraInstance = nullptr;
     bool shown;
     int textureWidth;
     int textureHeight;
@@ -30,7 +30,7 @@ public:
     float getWidth();
     float getHeight();
     void setDrawOrder(int priority);
-    void setCameraInstance(class Camera *camera);
+    void setCameraInstance(class SpriteCamera *camera);
     void show();
     void hide();
     void setImageOffset(Position2 offset);

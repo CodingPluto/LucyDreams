@@ -3,7 +3,7 @@
 #include <string>
 #include "../components/AnimationComponent.h"
 #include "../colliders/PlatformerCollision.h"
-#include "../handlers/Camera.h"
+#include "../cameras/SpriteCamera.h"
 enum ls__LucyState
 {
     ls_Running,
@@ -22,7 +22,7 @@ class Lucy : public Sprite
 {
     AnimationComponent lucyAnimation;
 private:
-    Camera playerCamera;
+    SpriteCamera playerCamera;
     int coyoteCounter = 0;
     bool coyoteTime = false;
     bool extendedJump = false;

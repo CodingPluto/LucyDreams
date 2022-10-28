@@ -15,6 +15,8 @@ private:
 public:
     void loadScene(std::string sceneName);
     void unloadScene(std::string sceneName);
+    const bool removingScenes();
+    const std::vector<const std::string*> getScenesUnloadingNames();
     const std::vector<const std::string*> getLoadedScenesNames();
     SceneHandler();
     ~SceneHandler();

@@ -13,7 +13,6 @@ pkg_search_module(SDL2MIXER required SDL2_mixer>=2.0.0)
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS} ${SDL2MIXER_INCLUDE_DIRS})
 
 add_library(Handlers
-Camera.h
 CameraHandler.h
 DisplayHandler.h
 EventsHandler.h
@@ -25,7 +24,6 @@ WindowHandler.h
 SceneHandler.h
 GameObjectHandler.h
 Scene.h
-Camera.cpp
 CameraHandler.cpp
 DisplayHandler.cpp
 EventCallback.cpp

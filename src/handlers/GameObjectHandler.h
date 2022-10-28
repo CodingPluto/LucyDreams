@@ -15,7 +15,6 @@ private:
 public:
     void addGameObject(class GameObject *address);
     void removeGameObject(class GameObject *address);
-    void purge();
     void deleteAtFrameEnd(GameObject *address);
     void reloadGameObjectPriorities();
 

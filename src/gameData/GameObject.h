@@ -18,20 +18,22 @@ private:
     std::string debugName;
 protected:
 public:
+    void setSceneName(const std::string *sceneNamePtr);
+    const std::string *sceneNamePtr = nullptr;
+    static class Game *game;
+    virtual void update() = 0;
+    virtual void onStart();
     void enable();
     void disable();
-    void setDebugName(const std::string &debugName);
-    const std::string &getDebugName();
-    gs__GameObjectStatus getGameObjectStatus();
-    static class Game *game;
     GameObject();
-    GameObject(std::string debugName);
     virtual ~GameObject();
     void setUpdateOrder(int priority);
     int getUpdateOrder();
-    static void setupGameObjs(class Game *gameInst);
-    virtual void update() = 0;
-    virtual void onStart();
+    gs__GameObjectStatus getGameObjectStatus();
+
+    void setDebugName(const std::string &debugName);
+    const std::string &getDebugName();
+    static void linkGameObjects(class Game *gameInst);
 };
 
 #endif

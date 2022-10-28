@@ -1,7 +1,7 @@
 #include "../handlers/ImageHandler.h"
 #include "../handlers/DisplayHandler.h"
 #include "../handlers/WindowHandler.h"
-#include "../handlers/Camera.h"
+#include "../cameras/SpriteCamera.h"
 #include "ImageComponent.h"
 #include "../gameData/Sprite.h"
 using namespace std;
@@ -37,7 +37,7 @@ void ImageComponent::setImage(string imageName)
     }
 }
 
-void ImageComponent::setCameraInstance(class Camera *camera)
+void ImageComponent::setCameraInstance(SpriteCamera *camera)
 {
     cameraInstance = camera;
 }

@@ -6,10 +6,15 @@ using namespace std;
 
 Game *GameObject::game = nullptr;
 
-void GameObject::setupGameObjs(Game *gameInst)
+void GameObject::linkGameObjects(Game *gameInst)
 {
     game = gameInst;
 
+}
+
+void GameObject::setSceneName(const std::string *sceneNamePtr)
+{
+    this->sceneNamePtr = sceneNamePtr;
 }
 
 void GameObject::onStart(){}
@@ -17,7 +22,7 @@ GameObject::GameObject(){
     gs = gs_Enabled;
     if (game == nullptr)
     {
-        throw "You haven't setup the game instance for the Game Objects.";
+        throw runtime_error("You haven't setup the game instance for the Game Objects.");
     }
     game->gameObjectHandler->addGameObject(this);
 }

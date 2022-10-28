@@ -16,7 +16,6 @@ using namespace std;
 
 Game::Game(): gameRunning(false)
 {
-    GameObject::setupGameObjs(this);
     Handler::linkHandlersToGame(this);
 }
 Game::~Game()

@@ -15,19 +15,18 @@ const string Lucy::lucyImagesPath = "lucyAnimations/";
 void Lucy::onStart()
 {
     cout << "Lucy on Start" << endl;
-}
-
-Lucy::Lucy(std::vector<AABBCollider*> &platforms): lucyAnimation(this), playerCamera(this,&lucyAnimation),platforms(platforms)
-{
     for (auto levelName : game->sceneHandler->getLoadedScenesNames())
     {
         cout << *levelName << ": " << endl;
         if (*levelName == "awake1")
         {
             previouslyLoadedLevelName = levelName;
-
         }
     }
+}
+
+Lucy::Lucy(std::vector<AABBCollider*> &platforms): lucyAnimation(this), playerCamera(this,&lucyAnimation),platforms(platforms)
+{
     setDebugName("Lucy");
     setUpdateOrder(10);
     lucyAnimation.setDrawOrder(0);

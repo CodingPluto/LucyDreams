@@ -9,6 +9,11 @@ public:
 
     Position2(): x(0), y(0){}
     Position2(float x, float y): x(x), y(y){}
+    Position2(const Position2& src) // Copy Constructor Overload
+    {
+        x = src.x;
+        y = src.y;
+    }
     Position2 operator+=(Position2 pos)
     {
         x += pos.x;
