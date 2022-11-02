@@ -1,0 +1,5 @@
+#ifndef SRC_GAMEDATA_SPRITEUTILS_H
+#define SRC_GAMEDATA_SPRITEUTILS_H
+
+
+#endif

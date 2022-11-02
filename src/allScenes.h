@@ -12,4 +12,5 @@ void awake1(std::vector<class GameObject*> *dynamicGameObjects);
 void awake2(std::vector<class GameObject*> *dynamicGameObjects);
 void awake3(std::vector<class GameObject*> *dynamicGameObjects);
 void awake4(std::vector<class GameObject*> *dynamicGameObjects);
+void testArea(std::vector<class GameObject*> *dynamicGameObjects);
 #endif

@@ -4,6 +4,8 @@
 #include "clouds/PlatformPlacer.h"
 #include "clouds/CheckpointPlatform.h"
 #include "colliders/AABBCollider.h"
+#include "platforms/Platform.h"
+#include "handlers/WindowHandler.h"
 using namespace std;
 
 vector<AABBCollider*> colliders;
@@ -95,4 +97,17 @@ void developer(vector<class GameObject*> *dynamicGameObjects)
 void player(vector<class GameObject*> *dynamicGameObjects)
 {
     dynamicGameObjects->emplace_back(new Lucy(colliders));
+}
+
+void testArea(vector<GameObject*> *dynamicGameObjects)
+{
+    Platform *platform = new Platform(13, false);
+    platform->setPlatformImages("blocker/blocker_left.png","blocker/blocker_middle.png","blocker/blocker_right.png");
+    platform->setPosition(platform->game->windowHandler->getCentreScreenX(platform->getWidth()),670);
+    dynamicGameObjects->emplace_back(platform);
+
+    Platform *platform2 = new Platform(13, true);
+    platform2->setPlatformImages("blocker/blocker_left.png","blocker/blocker_middle.png","blocker/blocker_right.png");
+    platform2->setPosition(platform->game->windowHandler->getCentreScreenX(platform2->getWidth()),0);
+    dynamicGameObjects->emplace_back(platform2);
 }

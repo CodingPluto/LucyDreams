@@ -14,6 +14,7 @@ SceneHandler::SceneHandler():Handler(hp_OnInput)
     addSceneConfiguration("player",player);
     addSceneConfiguration("developer",developer);
     addSceneConfiguration("awake2",awake2);
+    addSceneConfiguration("testArea", testArea);
 }
 void SceneHandler::addSceneConfiguration(const string sceneName, SceneFunction sceneLoader)
 {

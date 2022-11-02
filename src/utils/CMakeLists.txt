@@ -8,4 +8,6 @@ add_library(Utilities
 Colour.h
 utils.h
 utils.cpp
+spriteUtils.h
+spriteUtils.cpp
 )

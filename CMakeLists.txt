@@ -20,6 +20,7 @@ add_subdirectory(src/colliders)
 add_subdirectory(src/clouds)
 add_subdirectory(src/gameData)
 add_subdirectory(src/lucy)
+add_subdirectory(src/platforms)
 add_executable(LucyDreams
     src/main.cpp
     src/allScenes.h
@@ -32,4 +33,4 @@ target_include_directories(LucyDreams PUBLIC
 "${PROJECT_SOURCE_DIR}"
 )
 target_link_libraries(LucyDreams ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
-target_link_libraries(LucyDreams Lucy Cameras Clouds GameData Handlers Utilities Components Colliders)
+target_link_libraries(LucyDreams Lucy Platforms Cameras Clouds GameData Handlers Utilities Components Colliders)

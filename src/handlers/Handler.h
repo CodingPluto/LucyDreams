@@ -18,8 +18,8 @@ public:
     virtual ~Handler();
     virtual HandlerError* tick();
     virtual bool initalize();
-protected:
     static class Game *game;
+protected:
     std::string debugName;
     Handler(hp__HandlerTickPoint handlerTickPoint);
 };

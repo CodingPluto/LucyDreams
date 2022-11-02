@@ -136,7 +136,7 @@ void Lucy::handleInput()
     {
         coyoteCounter ++;
     }
-    if (coyoteTime > coyoteFrames)
+    if (coyoteCounter > coyoteFrames)
     {
         coyoteTime = false;
     }

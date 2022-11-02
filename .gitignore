@@ -1,4 +1,5 @@
 CMakeLists.txt.user
+src/platformOutput/platforms.out
 CMakeCache.txt
 CMakeFiles
 CMakeScripts

@@ -2,6 +2,7 @@
 #include "gameData/Game.h"
 #include "gameData/Sprite.h" 
 #include "utils/utils.h"
+#include "utils/spriteUtils.h"
 #include "handlers/WindowHandler.h"
 #include "handlers/DisplayHandler.h"
 #include "handlers/EventsHandler.h"
@@ -12,7 +13,6 @@
 #include "handlers/GameObjectHandler.h"
 #include "allScenes.h"
 using namespace std;
-
 
 class LucyDreams : public Game
 {
@@ -26,8 +26,8 @@ class LucyDreams : public Game
         imageHandler = new ImageHandler(windowHandler, cameraHandler, "/home/pluto/Documents/Programming/LucyDreams/assets/images/");
         sceneHandler = new SceneHandler();
         sceneHandler->loadScene("player");
-        sceneHandler->loadScene("developer");
         sceneHandler->loadScene("awake1");
+        //sceneHandler->loadScene("testArea");
     }
 public:
     ~LucyDreams()

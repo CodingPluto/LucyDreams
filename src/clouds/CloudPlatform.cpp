@@ -4,9 +4,10 @@
 #include "../utils/utils.h"
 using namespace std;
 
-CloudPlatform::CloudPlatform(vector<AABBCollider*> &colliders, Position2 setPosition, unsigned int cloudLength, int movementRange):image(this),cloudLength(cloudLength), cloudType(cloudType),collider(0,0,0,0,this)
+CloudPlatform::CloudPlatform(vector<AABBCollider*> &colliders, Position2 setPosition, unsigned int cloudLength, int movementRange):image(this),cloudLength(cloudLength), collider(0,0,0,0,this)
 {
     collider.setAABBColliders(colliders);
+    this->movementRange = movementRange;
     position = setPosition;
     construct();
     setCloudLength(cloudLength);
@@ -25,7 +26,6 @@ void CloudPlatform::construct()
     scale = 3;
     collider.setRawHeight(cloudHeight);
     collider.setUpdateOrder(cloudUpdatePosition - 1);
-    this->movementRange = movementRange;
     setUpdateOrder(cloudUpdatePosition);
     sinPoint = generateRandomNumber(1,1);
 
@@ -37,8 +37,8 @@ CloudPlatform::~CloudPlatform()
 
 void CloudPlatform::update()
 {
-    movementSpeed = sin(sinPoint) * movementRange;
-    position.y += movementSpeed;
+    //movementSpeed = sin(sinPoint) * movementRange;
+    //position.y += movementSpeed;
     sinPoint += 0.02;
 }
 

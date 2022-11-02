@@ -58,7 +58,7 @@ private:
 public:
     void onStart() override;
     Lucy(std::vector<AABBCollider*> &platforms);
-    void update();
+    void update() override;
 };
 
 

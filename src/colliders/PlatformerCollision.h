@@ -1,4 +1,4 @@
-#ifndef SRC_PLATFORMER_COLLSION
+#ifndef SRC_PLATFORMER_COLLISION
 #define SRC_PLATFORMER_COLLISION
 #include "../gameData/Sprite.h"
 #include "AABBCollider.h"
